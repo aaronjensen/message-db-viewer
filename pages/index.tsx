@@ -36,13 +36,18 @@ const Message = ({ message }) => {
 export default function Home() {
   const router = useRouter()
 
-  const streamName = router.query.streamName
-  console.log(streamName)
+  let streamNames = router.query.streamNames || ""
+  streamNames = streamNames.split(',')
+
 
   return (
-    <div tw="p-4">
-      <div tw="mb-2">{streamName}</div>
-      {streamName && <Stream streamName={streamName}/>}
+    <div tw="p-4 flex flex-col gap-8">
+      {streamNames.map(streamName => (
+        <div>
+          <div tw="mb-2">{streamName}</div>
+          {streamName && <Stream streamName={streamName}/>}
+        </div>
+      ))}
     </div>
   )
 }
