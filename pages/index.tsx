@@ -1,7 +1,9 @@
+import * as React from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import tw, { css, styled, theme } from 'twin.macro'
+import Xarrow from "react-xarrows";
 
 const fetchJSON = url => fetch(url).then(res => res.json());
 
@@ -18,17 +20,30 @@ const Stream = ({ streamName }) => {
 }
 
 const Message = ({ message }) => {
-  return (
-    <div tw="border px-4 py-2 bg-white flex flex-col">
-      <div>{message.type}</div>
-      <div tw="grid grid-cols-2 gap-x-2">
-        <div>Pos:</div>
-        <div tw="text-right">{message.position}</div>
+  const ref = React.useRef()
+  const causationPosition = message.metadata?.causationMessageGlobalPosition
 
-        <div>GP:</div>
-        <div tw="text-right">{message.global_position}</div>
+  return (
+    <>
+      <div ref={ref} id={`message-${message.global_position}`} tw="border px-4 py-2 bg-white flex flex-col">
+        <div>{message.type}</div>
+        <div tw="grid grid-cols-2 gap-x-2">
+          <div>Pos:</div>
+          <div tw="text-right">{message.position}</div>
+
+          <div>GP:</div>
+          <div tw="text-right">{message.global_position}</div>
+        </div>
       </div>
-    </div>
+      {causationPosition &&
+        <Xarrow
+          strokeWidth={2}
+          start={`message-${causationPosition}`}
+          end={ref}
+          startAnchor="bottom"
+          endAnchor="top"
+        />}
+    </>
   )
 
 }
