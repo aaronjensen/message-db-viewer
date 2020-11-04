@@ -1,0 +1,8 @@
+// Session settings user guide: http://docs.eventide-project.org/user-guide/session.html#settings
+{
+  "dbname": "message_store",
+  "host": "localhost",
+  "hostaddr": "127.0.0.1",
+  "port": 5432,
+  "user": "message_store"
+}
