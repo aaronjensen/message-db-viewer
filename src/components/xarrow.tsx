@@ -3,7 +3,6 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import isEqual from "lodash.isequal";
 import pick from "lodash.pick";
-import PropTypes from "prop-types";
 
 ///////////////
 // public types
@@ -737,7 +736,7 @@ const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
         {...(SVGcanvas as string)}
       >
         {/* debug */}
-        <circle r="5" cx={st.cpx1} cy={st.cpy1} fill="green" />
+        {/*<circle r="5" cx={st.cpx1} cy={st.cpy1} fill="green" />
         <circle r="5" cx={st.cpx2} cy={st.cpy2} fill="blue" />
         <rect
                   x={st.excLeft}
@@ -747,7 +746,7 @@ const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
                   fill="none"
                   stroke="pink"
                   strokeWidth="2px"
-                />
+                />*/}
 
         {/* body of the arrow */}
         <path
@@ -827,49 +826,6 @@ const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
       ) : null}
     </div>
   );
-};
-
-const pAnchorPositionType = PropTypes.oneOf([
-  "middle",
-  "left",
-  "right",
-  "top",
-  "bottom",
-  "auto",
-]);
-const pAnchorCustomPositionType = PropTypes.shape({
-  position: pAnchorPositionType.isRequired,
-  offset: PropTypes.shape({
-    rightness: PropTypes.number,
-    bottomness: PropTypes.number,
-  }),
-});
-
-const pAnchorType = PropTypes.oneOfType([
-  pAnchorPositionType,
-  pAnchorCustomPositionType,
-  PropTypes.arrayOf(
-    PropTypes.oneOfType([pAnchorPositionType, pAnchorCustomPositionType])
-  ),
-]);
-
-const pRefType = PropTypes.oneOfType([PropTypes.string, PropTypes.object]);
-
-Xarrow.propTypes = {
-  start: pRefType.isRequired,
-  end: pRefType.isRequired,
-  startAnchor: pAnchorType,
-  endAnchor: pAnchorType,
-  label: PropTypes.oneOfType([PropTypes.elementType, PropTypes.object]),
-  color: PropTypes.string,
-  lineColor: PropTypes.string,
-  headColor: PropTypes.string,
-  strokeWidth: PropTypes.number,
-  headSize: PropTypes.number,
-  path: PropTypes.oneOf(["smooth", "grid", "straight"]),
-  curveness: PropTypes.number,
-  dashness: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
-  passProps: PropTypes.object,
 };
 
 Xarrow.defaultProps = {
