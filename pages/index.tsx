@@ -8,7 +8,7 @@ import Xarrow from "react-xarrows";
 const fetchJSON = url => fetch(url).then(res => res.json());
 
 const Stream = ({ streamName }) => {
-  const { data } = useSWR(`/api/stream/${streamName}`, fetchJSON)
+  const { data } = useSWR(`/api/stream/${streamName}`, fetchJSON, { refreshInterval: 500 })
 
   return (
     <div tw="grid grid-flow-col auto-cols-max gap-2 border p-2 bg-gray-100" css={{ width: 'max-content' }}>
