@@ -11,7 +11,7 @@ const Stream = ({ streamName }) => {
   const { data } = useSWR(`/api/stream/${streamName}`, fetchJSON)
 
   return (
-    <div tw="grid grid-flow-col auto-cols-max gap-2 border p-2 bg-gray-100">
+    <div tw="grid grid-flow-col auto-cols-max gap-2 border p-2 bg-gray-100" css={{ width: 'max-content' }}>
       {data && data.map(message => (
         <Message key={message.id} message={message}/>
       ))}
