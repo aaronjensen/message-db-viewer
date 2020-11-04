@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import tw, { css, styled, theme } from 'twin.macro'
-import Xarrow from "react-xarrows";
+import Xarrow from "../src/components/xarrow";
 
 const fetchJSON = url => fetch(url).then(res => res.json());
 
@@ -36,13 +36,19 @@ const Message = ({ message }) => {
         </div>
       </div>
       {causationPosition &&
-        <Xarrow
-          strokeWidth={2}
-          start={`message-${causationPosition}`}
-          end={ref}
-          startAnchor="bottom"
-          endAnchor="top"
-        />}
+       <Xarrow
+         strokeWidth={2}
+         start={`message-${causationPosition}`}
+         end={ref}
+         startAnchor={{
+           position: "bottom",
+           offset: { rightness: 10 }
+         }}
+         endAnchor={{
+           position: message.metadata.causationMessageStreamName === message.stream_name ? "bottom" : "top",
+           offset: { rightness: -10 }
+         }}
+       />}
     </>
   )
 
