@@ -20,6 +20,7 @@
   },
   "include": [
     "next-env.d.ts",
+    "types/twin.d.ts",
     "**/*.ts",
     "**/*.tsx"
   ],
