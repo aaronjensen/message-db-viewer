@@ -138,8 +138,10 @@ export default function Home() {
     <div tw="p-4 flex flex-col gap-8">
       {streamNames.map(streamName => (
         <div>
-          <div tw="mb-2">{streamName}</div>
-          {streamName && <Stream streamName={streamName}/>}
+          <div tw="z-10 absolute bg-white bg-opacity-75">{streamName}</div>
+          <div tw="z-0 mt-8">
+            <Stream streamName={streamName}/>
+          </div>
         </div>
       ))}
     </div>
