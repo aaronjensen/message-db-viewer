@@ -20,15 +20,38 @@ export default async (req, res) => {
   const batchSize = 100
   const condition = null
 
-  const parameters = '$1::varchar, $2::bigint, $3::bigint, $4::varchar'
-  const values = [
-    streamName,
-    position,
-    batchSize,
-    condition,
-  ]
+  let result
+  if (streamName.endsWith("*")) {
+    const category = streamName.split("-")[0]
+    const correlation = null
+    const consumerGroupMember = null
+    const consumerGroupSize = null
+    const pattern = streamName.replace(/\*/g, "%")
 
-  const result = await pool.query(`SELECT * from get_stream_messages(${parameters})`, values)
+    const parameters = '$1::varchar, $2::bigint, $3::bigint, $4::varchar, $5::bigint, $6::bigint, $7::varchar'
+    const values = [
+      category,
+      position,
+      batchSize,
+      correlation,
+      consumerGroupMember,
+      consumerGroupSize,
+      condition,
+      pattern
+    ]
+
+    result = await pool.query(`SELECT * from get_category_messages(${parameters}) WHERE stream_name like $8`, values)
+  } else {
+    const parameters = '$1::varchar, $2::bigint, $3::bigint, $4::varchar'
+    const values = [
+      streamName,
+      position,
+      batchSize,
+      condition,
+    ]
+
+    result = await pool.query(`SELECT * from get_stream_messages(${parameters})`, values)
+  }
 
   res.statusCode = 200
   res.json(result.rows.map(parseRow))
