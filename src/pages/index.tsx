@@ -1,16 +1,34 @@
-import * as React from "react"
+import { useEffect } from "react"
 import { useRouter } from "next/router"
 import "twin.macro"
 import { Stream } from "@components/stream"
+import { atom, useAtom } from "jotai"
+import { useUpdateAtom } from "jotai/utils.cjs"
 
-export default function Home() {
-  const router = useRouter()
+const queryStreamNamesAtom = atom<string[] | string | undefined>(undefined)
 
-  let streamNames = router.query.streamNames || []
+const streamNamesAtom = atom((get) => {
+  let streamNames = get(queryStreamNamesAtom) || []
+
   if (!Array.isArray(streamNames)) {
     streamNames = [streamNames]
   }
   streamNames = streamNames.flatMap((s) => s.split(","))
+
+  return streamNames
+})
+
+export default function Home() {
+  const router = useRouter()
+
+  let queryStreamNames = router.query.streamNames
+  const setQueryStreamNames = useUpdateAtom(queryStreamNamesAtom)
+
+  useEffect(() => {
+    setQueryStreamNames(queryStreamNames)
+  }, [queryStreamNames])
+
+  const [streamNames] = useAtom(streamNamesAtom)
 
   return (
     <div tw="p-4 flex flex-col gap-8">

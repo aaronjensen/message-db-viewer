@@ -3976,6 +3976,13 @@ jest-worker@24.9.0:
     merge-stream "^2.0.0"
     supports-color "^6.1.0"
 
+jotai@^0.10.3:
+  version "0.10.3"
+  resolved "https://registry.yarnpkg.com/jotai/-/jotai-0.10.3.tgz#c1ca00a4da149aa5aacb346d6273305dddbe8c1d"
+  integrity sha512-MRFdjEbqgnX7F2Zz0h4PUs995UPURQxskXPvnlAzJzXkvhJJWcErTHJx5aAMbnzxhkvTuIaBS3b3TRdOHG++iw==
+  dependencies:
+    use-context-selector "1.2.10"
+
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -6771,6 +6778,11 @@ url@^0.11.0:
   dependencies:
     punycode "1.3.2"
     querystring "0.2.0"
+
+use-context-selector@1.2.10:
+  version "1.2.10"
+  resolved "https://registry.yarnpkg.com/use-context-selector/-/use-context-selector-1.2.10.tgz#47230099cd381119ae1c0f4a44737f336932aec0"
+  integrity sha512-gSKcvwl2I683GY5JG/ixsVDeVsIdEdLJz3ccl7y1KaKJqXitX2PjC0Z1F0LEtni1pc7u1J3cy5dHT8+MI69naA==
 
 use-subscription@1.5.0:
   version "1.5.0"

@@ -1,7 +1,19 @@
 import { Stream } from "@components/stream"
+import { Message } from "@data/message"
+import { atom } from "jotai"
+import { atomFamily } from "jotai/utils.cjs"
 import "twin.macro"
 
+const streamNamesAtom = atom<String[]>([])
+
+const getStreamAtom = atomFamily((streamName: string) => ({
+  streamName,
+  messages: [] as Message[],
+}))
+
 export const StreamList = ({ names }: { names: string[] }) => {
+  const streamAtoms = names.map(getStreamAtom)
+
   return (
     <div tw="p-4 flex flex-col gap-8">
       {names.map((name) => (
