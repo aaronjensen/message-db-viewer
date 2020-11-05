@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { Pool } from 'pg'
-import settings from '../../../settings/message_store_postgres.json'
+import { Pool } from "pg"
+import settings from "../../../settings/message_store_postgres.json"
 
 const pool = new Pool(settings)
 
@@ -28,7 +28,8 @@ export default async (req, res) => {
     const consumerGroupSize = null
     const pattern = streamName.replace(/\*/g, "%")
 
-    const parameters = '$1::varchar, $2::bigint, $3::bigint, $4::varchar, $5::bigint, $6::bigint, $7::varchar'
+    const parameters =
+      "$1::varchar, $2::bigint, $3::bigint, $4::varchar, $5::bigint, $6::bigint, $7::varchar"
     const values = [
       category,
       position,
@@ -37,20 +38,21 @@ export default async (req, res) => {
       consumerGroupMember,
       consumerGroupSize,
       condition,
-      pattern
+      pattern,
     ]
 
-    result = await pool.query(`SELECT * from get_category_messages(${parameters}) WHERE stream_name like $8`, values)
+    result = await pool.query(
+      `SELECT * from get_category_messages(${parameters}) WHERE stream_name like $8`,
+      values
+    )
   } else {
-    const parameters = '$1::varchar, $2::bigint, $3::bigint, $4::varchar'
-    const values = [
-      streamName,
-      position,
-      batchSize,
-      condition,
-    ]
+    const parameters = "$1::varchar, $2::bigint, $3::bigint, $4::varchar"
+    const values = [streamName, position, batchSize, condition]
 
-    result = await pool.query(`SELECT * from get_stream_messages(${parameters})`, values)
+    result = await pool.query(
+      `SELECT * from get_stream_messages(${parameters})`,
+      values
+    )
   }
 
   res.statusCode = 200
