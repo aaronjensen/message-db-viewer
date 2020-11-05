@@ -1,15 +1,28 @@
 import * as React from 'react'
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
-import tw, { css, styled, theme } from 'twin.macro'
+import 'twin.macro'
 import Xarrow from "../src/components/xarrow";
 import { usePopper } from 'react-popper';
+import { css } from 'twin.macro';
 
-const fetchJSON = url => fetch(url).then(res => res.json());
+const fetchJSON = (url: string) => fetch(url).then(res => res.json());
 
-const Stream = ({ streamName }) => {
-  const { data } = useSWR(`/api/stream/${streamName}`, fetchJSON, { refreshInterval: 500 })
+type Value = string | number | null
+type MessageData = Record<string, Value>
+
+interface Message {
+  id: string
+  type: string
+  data: MessageData
+  position: number
+  global_position: number
+  stream_name: string
+  metadata?: Record<string, string | number | null>
+}
+
+const Stream = ({ streamName }: {streamName: string}) => {
+  const { data } = useSWR<Message[]>(`/api/stream/${streamName}`, fetchJSON, { refreshInterval: 500 })
 
   return (
     <div tw="grid grid-flow-col auto-cols-max gap-2 border p-2 bg-gray-100" css={{ width: 'max-content' }}>
@@ -20,7 +33,7 @@ const Stream = ({ streamName }) => {
   )
 }
 
-const MessageDetail = ({message}) => {
+const MessageDetail = ({message}: {message: Message}) => {
   return (
     <div tw="bg-white p-4 border max-w-3xl z-50">
       <h1 tw="text-xl font-bold mb-3">{message.type}</h1>
@@ -33,7 +46,7 @@ const MessageDetail = ({message}) => {
   )
 }
 
-const DataTable = ({title, data}) => (
+const DataTable = ({title, data}: {title: string, data: MessageData}) => (
   <div>
     <h2 tw="text-lg font-bold mb-2">{title}</h2>
 
@@ -50,29 +63,28 @@ const DataTable = ({title, data}) => (
   </div>
 )
 
-const clamp = {
+const clamp = css({
   maxWidth: '100%',
   display: '-webkit-box',
   WebkitBoxOrient: 'vertical',
   WebkitLineClamp: 2,
   overflow: 'hidden',
   textOverflow: 'ellipsis',
-}
+})
 
-const DataValue = ({value}) => {
+const DataValue = ({value}: {value: Value}) => {
   return <div tw="w-auto break-all resize-none" css={clamp}>
     {value}
   </div>
 }
 
-
-const Message = ({ message }) => {
-  const ref = React.useRef()
+const Message = ({ message }: {message: Message}) => {
+  const ref = React.useRef<HTMLDivElement>(null)
   const causationPosition = message.metadata?.causationMessageGlobalPosition
 
   const [showTooltip, setShowTooltip] = React.useState(false);
-  const [referenceElement, setReferenceElement] = React.useState(null);
-  const [popperElement, setPopperElement] = React.useState(null);
+  const [referenceElement, setReferenceElement] = React.useState<HTMLElement | null>();
+  const [popperElement, setPopperElement] = React.useState<HTMLElement | null>();
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     placement: 'auto-start',
     modifiers: [
@@ -109,18 +121,18 @@ const Message = ({ message }) => {
           <MessageDetail message={message}/>
         </div>)}
 
-      {causationPosition &&
+      {message.metadata && causationPosition &&
        <Xarrow
          strokeWidth={2}
          start={`message-${causationPosition}`}
          end={ref}
          startAnchor={{
            position: "bottom",
-           offset: { rightness: 10 }
+           offset: { rightness: 10, bottomness: 0 }
          }}
          endAnchor={{
            position: message.metadata.causationMessageStreamName === message.stream_name ? "bottom" : "top",
-           offset: { rightness: -10 }
+           offset: { rightness: -10, bottomness: 0 }
          }}
        />}
     </>
@@ -131,8 +143,9 @@ export default function Home() {
   const router = useRouter()
 
   let streamNames = router.query.streamNames || ""
-  streamNames = streamNames.split(',')
-
+  if (!Array.isArray(streamNames)) {
+    streamNames = streamNames.split(',')
+  }
 
   return (
     <div tw="p-4 flex flex-col gap-8">
