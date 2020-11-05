@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { Pool } from "pg"
-import settings from "../../../settings/message_store_postgres.json"
+import settings from "@settings/message_store_postgres.json"
 
 const pool = new Pool(settings)
 
