@@ -2,7 +2,7 @@ import * as React from "react"
 import { useRouter } from "next/router"
 import useSWR from "swr"
 import "twin.macro"
-import Xarrow from "../src/components/xarrow"
+import Xarrow from "@components/xarrow"
 import { usePopper } from "react-popper"
 import { css } from "twin.macro"
 
