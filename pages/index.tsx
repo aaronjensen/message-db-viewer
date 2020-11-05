@@ -179,7 +179,7 @@ export default function Home() {
   return (
     <div tw="p-4 flex flex-col gap-8">
       {streamNames.map((streamName) => (
-        <div>
+        <div key={streamName}>
           <div tw="z-10 absolute bg-white bg-opacity-75">{streamName}</div>
           <div tw="z-0 mt-8">
             <Stream streamName={streamName} />
