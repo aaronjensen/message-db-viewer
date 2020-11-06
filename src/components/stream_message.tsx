@@ -3,9 +3,9 @@ import Xarrow from "@components/xarrow"
 import { usePopper } from "react-popper"
 import { css } from "twin.macro"
 import "twin.macro"
-import type { Message } from "@data/message"
+import * as Data from "@data"
 
-export const StreamMessage = ({ message }: { message: Message }) => {
+export const StreamMessage = ({ message }: { message: Data.Message }) => {
   const ref = React.useRef<HTMLDivElement>(null)
   const causationPosition = message.metadata?.causationMessageGlobalPosition
 
@@ -86,8 +86,8 @@ export const StreamMessage = ({ message }: { message: Message }) => {
 
 const MessageDetail = ({ message }: { message: Message }) => {
   return (
-    <div tw="bg-white p-4 border max-w-3xl z-50">
-      <h1 tw="text-xl font-bold mb-3">{message.type}</h1>
+    <div tw="bg-white p-4 border max-w-3xl z-50 text-xs">
+      <h1 tw="text-base font-bold mb-3">{message.type}</h1>
       <div tw="font-mono mb-4">
         Stream Name: <span tw="ml-4">{message.stream_name}</span>
       </div>
@@ -100,9 +100,15 @@ const MessageDetail = ({ message }: { message: Message }) => {
   )
 }
 
-const DataTable = ({ title, data }: { title: string; data: MessageData }) => (
+const DataTable = ({
+  title,
+  data,
+}: {
+  title: string
+  data: Data.MessageData
+}) => (
   <div>
-    <h2 tw="text-lg font-bold mb-2">{title}</h2>
+    <h2 tw="text-sm font-bold mb-2">{title}</h2>
 
     <table tw="font-mono mb-4">
       <tbody>
