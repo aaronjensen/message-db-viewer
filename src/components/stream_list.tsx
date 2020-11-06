@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useMemo } from "react"
 import useSWR from "swr"
 import { Stream } from "@components/stream"
 import "twin.macro"
@@ -34,6 +34,14 @@ const FetchStream = ({
   return null
 }
 
+const sortStreams = (streams: Data.Stream[]) =>
+  streams.sort((a, b) => {
+    const posA = a.messages[0]?.global_position ?? Infinity
+    const posB = b.messages[0]?.global_position ?? Infinity
+
+    return posA - posB
+  })
+
 export const StreamList = ({ names }: { names: string[] }) => {
   const [streams, setStreams] = useState<Record<string, Data.Stream>>({})
 
@@ -51,7 +59,9 @@ export const StreamList = ({ names }: { names: string[] }) => {
     [setStreams]
   )
 
-  console.log(streams)
+  const sortedStreams = useMemo(() => sortStreams(Object.values(streams)), [
+    streams,
+  ])
 
   return (
     <div tw="p-4 flex flex-col gap-8">
@@ -63,7 +73,7 @@ export const StreamList = ({ names }: { names: string[] }) => {
           clearStream={clearStream}
         />
       ))}
-      {Object.values(streams).map((stream) => (
+      {sortedStreams.map((stream) => (
         <div key={stream.name}>
           <div tw="z-10 absolute bg-white bg-opacity-75">{stream.name}</div>
           <div tw="z-0 mt-8">
