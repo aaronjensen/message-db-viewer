@@ -42,6 +42,7 @@ const sortStreams = (streams: Data.Stream[]) =>
     return posA - posB
   })
 
+// TODO Poll for most recently written to streams?
 export const StreamList = ({ names }: { names: string[] }) => {
   const [streams, setStreams] = useState<Record<string, Data.Stream>>({})
 
