@@ -80,7 +80,9 @@ export const StreamList = ({ names }: { names: string[] }) => {
       <CausationStreams selectedStreamNames={names} streams={streams} />
 
       {streams.map((stream) => (
-        <Stream key={stream.name} stream={stream} />
+        // Include the streams length in the key to work around arrows not being
+        // redrawn when a stream is removed
+        <Stream key={stream.name + streams.length} stream={stream} />
       ))}
     </div>
   )

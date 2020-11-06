@@ -1,7 +1,7 @@
 import { uniq, difference, compact } from "lodash"
 import { useRouter } from "next/router"
 import * as Data from "@data"
-import { parseStreamNames } from "@lib/router"
+import { addStream } from "@lib/router"
 import "twin.macro"
 
 interface CausationStreamsProps {
@@ -37,17 +37,6 @@ export const CausationStreams = ({
   const allMessages = streams.flatMap((stream) => stream.messages)
   const router = useRouter()
 
-  const addStream = (name: string) => {
-    let streamNames = parseStreamNames(router.query.streamNames)
-    streamNames.push(name)
-    streamNames = uniq(streamNames)
-
-    router.push({
-      pathname: "/",
-      query: { streamNames: streamNames.join(",") },
-    })
-  }
-
   let causationStreamNames = compact(
     allMessages.map((message) => message.metadata?.causationMessageStreamName)
   )
@@ -61,8 +50,8 @@ export const CausationStreams = ({
       <h2 tw="font-bold">Causation Streams</h2>
       <ul>
         {causationStreamNames.map((name) => (
-          <li>
-            <Button onClick={() => addStream(name)}>{name}</Button>
+          <li key={name}>
+            <Button onClick={() => addStream(router, name)}>{name}</Button>
           </li>
         ))}
       </ul>

@@ -1,6 +1,6 @@
 import { StreamMessage } from "@components/stream_message"
 import * as Data from "@data"
-import { parseStreamNames } from "@lib/router"
+import { removeStream } from "@lib/router"
 import { useRouter } from "next/router"
 import "twin.macro"
 
@@ -9,21 +9,11 @@ export const Stream = ({ stream }: { stream: Data.Stream }) => {
 
   const router = useRouter()
 
-  const hideStream = () => {
-    let streamNames = parseStreamNames(router.query.streamNames)
-    streamNames = streamNames.filter((name) => stream.name !== name)
-
-    router.push({
-      pathname: "/",
-      query: { streamNames: streamNames.join(",") },
-    })
-  }
-
   return (
     <div>
       <div tw="z-10 absolute bg-white bg-opacity-75 flex">
         <div tw="mr-4">{stream.name}</div>
-        <button tw="text-xs" onClick={hideStream}>
+        <button tw="text-xs" onClick={() => removeStream(router, stream.name)}>
           hide
         </button>
       </div>
