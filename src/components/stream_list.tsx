@@ -3,6 +3,7 @@ import useSWR from "swr"
 import { Stream } from "@components/stream"
 import "twin.macro"
 import * as Data from "@data"
+import { CausationStreams } from "@components/causation_streams"
 
 const fetchJSON = (url: string) => fetch(url).then((res) => res.json())
 
@@ -20,7 +21,6 @@ const FetchStream = ({
     fetchJSON,
     {
       refreshInterval: 500,
-      suspense: true,
     }
   )
 
@@ -42,27 +42,29 @@ const sortStreams = (streams: Data.Stream[]) =>
     return posA - posB
   })
 
+const setStreamInList = (streams: Data.Stream[], stream: Data.Stream) => {
+  streams = streams.filter((s) => s.name !== stream.name)
+  streams.push(stream)
+  return sortStreams(streams)
+}
+
 // TODO Poll for most recently written to streams?
 export const StreamList = ({ names }: { names: string[] }) => {
-  const [streams, setStreams] = useState<Record<string, Data.Stream>>({})
+  const [streams, setStreams] = useState<Data.Stream[]>([])
 
   const setStream = useCallback(
     (name: string, messages: Data.Message[]) => {
-      setStreams((streams) => ({ ...streams, [name]: { name, messages } }))
+      setStreams((streams) => setStreamInList(streams, { name, messages }))
     },
     [setStreams]
   )
 
   const clearStream = useCallback(
     (name: string) => {
-      setStreams(({ [name]: _removed, ...streams }) => streams)
+      setStreams((streams) => streams.filter((s) => s.name !== name))
     },
     [setStreams]
   )
-
-  const sortedStreams = useMemo(() => sortStreams(Object.values(streams)), [
-    streams,
-  ])
 
   return (
     <div tw="p-4 flex flex-col gap-8">
@@ -74,7 +76,10 @@ export const StreamList = ({ names }: { names: string[] }) => {
           clearStream={clearStream}
         />
       ))}
-      {sortedStreams.map((stream) => (
+
+      <CausationStreams selectedStreamNames={names} streams={streams} />
+
+      {streams.map((stream) => (
         <div key={stream.name}>
           <div tw="z-10 absolute bg-white bg-opacity-75">{stream.name}</div>
           <div tw="z-0 mt-8">

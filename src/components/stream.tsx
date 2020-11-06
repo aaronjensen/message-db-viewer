@@ -1,11 +1,8 @@
-import useSWR from "swr"
 import { StreamMessage } from "@components/stream_message"
 import * as Data from "@data"
 import "twin.macro"
 
-const fetchJSON = (url: string) => fetch(url).then((res) => res.json())
-
-export const Stream = ({ stream }: Data.Stream) => {
+export const Stream = ({ stream }: { stream: Data.Stream }) => {
   const { messages } = stream
 
   return (

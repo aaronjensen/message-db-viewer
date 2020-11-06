@@ -1,20 +1,16 @@
 import * as React from "react"
 import { useRouter } from "next/router"
 import "twin.macro"
-import { Stream } from "@components/stream"
 import { SuspenseOnClient } from "@components/suspense"
 import { StreamList } from "@components/stream_list"
+import { parseStreamNames } from "@lib/router"
 
 const Loading = () => <div>Loading</div>
 
 export default function Home() {
   const router = useRouter()
 
-  let streamNames = router.query.streamNames || []
-  if (!Array.isArray(streamNames)) {
-    streamNames = [streamNames]
-  }
-  streamNames = streamNames.flatMap((s) => s.split(","))
+  let streamNames = parseStreamNames(router.query.streamNames)
 
   return (
     <div tw="p-4 flex flex-col gap-8">

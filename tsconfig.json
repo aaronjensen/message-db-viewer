@@ -21,7 +21,9 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@data/*": ["src/data/*"],
-      "@settings/*": ["settings/*"]
+      "@data": ["src/data"],
+      "@settings/*": ["settings/*"],
+      "@lib/*": ["src/lib/*"]
     }
   },
   "include": [

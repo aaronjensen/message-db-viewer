@@ -1,8 +1,7 @@
 //// @ts-nocheck
 
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react"
-import isEqual from "lodash.isequal"
-import pick from "lodash.pick"
+import { isEqual, pick } from "lodash"
 
 ///////////////
 // public types
