@@ -80,12 +80,7 @@ export const StreamList = ({ names }: { names: string[] }) => {
       <CausationStreams selectedStreamNames={names} streams={streams} />
 
       {streams.map((stream) => (
-        <div key={stream.name}>
-          <div tw="z-10 absolute bg-white bg-opacity-75">{stream.name}</div>
-          <div tw="z-0 mt-8">
-            <Stream stream={stream} />
-          </div>
-        </div>
+        <Stream key={stream.name} stream={stream} />
       ))}
     </div>
   )
