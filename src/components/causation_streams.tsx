@@ -2,6 +2,7 @@ import { uniq, difference, compact } from "lodash"
 import { useRouter } from "next/router"
 import * as Data from "@data"
 import { addStream } from "@lib/router"
+import { Button } from "@components/button"
 import "twin.macro"
 
 interface CausationStreamsProps {
@@ -22,13 +23,6 @@ const uniqByCardinalID = (names: string[]) =>
   uniq(names.map(cardinalIDWildcard))
 
 const validStreamName = (streamName: string) => streamName.includes("-")
-
-const Button = (props: any) => (
-  <button
-    tw="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 active:text-gray-800 active:bg-gray-100 transition duration-150 ease-in-out"
-    {...props}
-  />
-)
 
 export const CausationStreams = ({
   selectedStreamNames,

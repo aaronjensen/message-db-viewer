@@ -4,6 +4,7 @@ import { Stream } from "@components/stream"
 import "twin.macro"
 import * as Data from "@data"
 import { CausationStreams } from "@components/causation_streams"
+import { AddStream } from "@components/add_stream"
 
 const fetchJSON = (url: string) => fetch(url).then((res) => res.json())
 
@@ -68,6 +69,8 @@ export const StreamList = ({ names }: { names: string[] }) => {
 
   return (
     <div tw="p-4 flex flex-col gap-8">
+      <AddStream />
+
       {names.map((name) => (
         <FetchStream
           key={name}
