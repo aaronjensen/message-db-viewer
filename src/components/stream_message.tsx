@@ -84,7 +84,7 @@ export const StreamMessage = ({ message }: { message: Data.Message }) => {
   )
 }
 
-const MessageDetail = ({ message }: { message: Message }) => {
+const MessageDetail = ({ message }: { message: Data.Message }) => {
   return (
     <div tw="bg-white p-4 border max-w-3xl z-50 text-xs">
       <h1 tw="text-base font-bold mb-3">{message.type}</h1>
@@ -134,7 +134,7 @@ const clamp = css({
   textOverflow: "ellipsis",
 })
 
-const DataValue = ({ value }: { value: Value }) => {
+const DataValue = ({ value }: { value: Data.Value }) => {
   return (
     <div tw="w-auto break-all resize-none" css={clamp}>
       {value}

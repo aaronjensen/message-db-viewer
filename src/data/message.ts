@@ -1,5 +1,5 @@
-type Value = string | number | null
-type MessageData = Record<string, Value>
+export type Value = string | number | null
+export type MessageData = Record<string, Value | undefined>
 
 export interface MessageMetadata {
   causationMessageStreamName?: string
@@ -7,6 +7,7 @@ export interface MessageMetadata {
   causationMessageGlobalPosition?: number
   replyStreamName?: string
   correlationStreamName?: string
+  [key: string]: Value | undefined
 }
 
 export interface Message {
