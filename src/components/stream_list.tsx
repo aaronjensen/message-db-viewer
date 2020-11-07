@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from "react"
 import useSWR from "swr"
 import { StreamNamePanel } from "@components/stream_name_panel"
 import { Stream } from "@components/stream"
-import "twin.macro"
+import tw from "twin.macro"
 import * as Data from "@data"
 
 const fetchJSON = (url: string) => fetch(url).then((res) => res.json())
@@ -67,10 +67,18 @@ export const StreamList = ({ names }: { names: string[] }) => {
   )
 
   return (
-    <div tw="flex">
+    <div
+      css={[
+        tw`grid gap-4 min-h-screen`,
+        {
+          gridTemplateColumns: "minmax(auto, 320px) 1fr",
+          gridTemplateRows: "1fr",
+        },
+      ]}
+    >
       <StreamNamePanel selectedStreamNames={names} streams={streams} />
 
-      <div tw="p-4 flex-1 flex flex-col gap-8">
+      <div tw="p-4 pb-32 flex-1 flex flex-col gap-8">
         {names.map((name) => (
           <FetchStream
             key={name}
