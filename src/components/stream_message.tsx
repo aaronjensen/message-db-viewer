@@ -54,7 +54,7 @@ export const StreamMessage = ({ message }: { message: Data.Message }) => {
         <div
           ref={setPopperElement}
           style={styles.popper}
-          tw="z-10"
+          tw="z-20"
           {...attributes.popper}
         >
           <MessageDetail message={message} />
@@ -86,7 +86,7 @@ export const StreamMessage = ({ message }: { message: Data.Message }) => {
 
 const MessageDetail = ({ message }: { message: Data.Message }) => {
   return (
-    <div tw="bg-white p-4 border max-w-3xl z-50 text-xs">
+    <div tw="bg-white p-4 border max-w-2xl z-50 text-xs">
       <h1 tw="text-base font-bold mb-3">{message.type}</h1>
       <div tw="font-mono mb-4">
         Stream Name: <span tw="ml-4">{message.stream_name}</span>
