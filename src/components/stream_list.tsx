@@ -71,7 +71,7 @@ export const StreamList = ({ names }: { names: string[] }) => {
       css={[
         tw`grid gap-4 min-h-screen`,
         {
-          gridTemplateColumns: "minmax(auto, 320px) 1fr",
+          gridTemplateColumns: "320px 1fr",
           gridTemplateRows: "1fr",
         },
       ]}

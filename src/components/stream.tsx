@@ -10,12 +10,16 @@ export const Stream = ({ stream }: { stream: Data.Stream }) => {
   const router = useRouter()
 
   return (
-    <div>
-      <div tw="z-10 absolute bg-white bg-opacity-75 flex">
-        <div tw="mr-4">{stream.name}</div>
-        <button tw="text-xs" onClick={() => removeStream(router, stream.name)}>
-          hide
+    <div tw="pl-2">
+      <div tw="z-10 absolute bg-white bg-opacity-75 flex -ml-8">
+        <button
+          tw="text-xs mr-2 text-gray-400 hover:(bg-red-400 text-white) transition duration-150 ease-in-out rounded-full "
+          css={{ width: 25, height: 25 }}
+          onClick={() => removeStream(router, stream.name)}
+        >
+          ✕
         </button>
+        <div>{stream.name}</div>
       </div>
       <div tw="z-0 mt-8">
         <div
