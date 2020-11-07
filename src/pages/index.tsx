@@ -13,10 +13,8 @@ export default function Home() {
   let streamNames = parseStreamNames(router.query.streamNames)
 
   return (
-    <div tw="p-4 flex flex-col gap-8">
-      <SuspenseOnClient fallback={<Loading />}>
-        <StreamList names={streamNames} />
-      </SuspenseOnClient>
-    </div>
+    <SuspenseOnClient fallback={<Loading />}>
+      <StreamList names={streamNames} />
+    </SuspenseOnClient>
   )
 }

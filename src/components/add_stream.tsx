@@ -5,12 +5,13 @@ import { Button } from "@components/button"
 import { addStream } from "@lib/router"
 
 const TextInput = tw.input`
-  px-4
-  py-2
+  px-2
   border
-  border-gray-300
-  leading-5
+  border-gray-400
+  leading-8
   flex-1
+  rounded
+  text-sm
 `
 
 export const AddStream = () => {
@@ -31,10 +32,10 @@ export const AddStream = () => {
 
   return (
     <form>
-      <div tw="flex gap-4 items-center w-full">
+      <div tw="flex gap-2 items-center w-full">
         <TextInput ref={textRef} type="text" css={{ maxWidth: 500 }} />
         <Button type="submit" onClick={onClick}>
-          Add Stream
+          Add
         </Button>
       </div>
     </form>

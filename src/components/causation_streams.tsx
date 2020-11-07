@@ -41,7 +41,7 @@ export const CausationStreams = ({
 
   return causationStreamNames.length > 0 ? (
     <div>
-      <h2 tw="font-bold">Causation Streams</h2>
+      <h2 tw="font-bold mb-2">Causation Streams</h2>
       <ul>
         {causationStreamNames.map((name) => (
           <li key={name}>

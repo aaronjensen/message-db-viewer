@@ -1,10 +1,9 @@
-import { useState, useEffect, useCallback, useMemo } from "react"
+import React, { useState, useEffect, useCallback, useMemo } from "react"
 import useSWR from "swr"
+import { StreamNamePanel } from "@components/stream_name_panel"
 import { Stream } from "@components/stream"
 import "twin.macro"
 import * as Data from "@data"
-import { CausationStreams } from "@components/causation_streams"
-import { AddStream } from "@components/add_stream"
 
 const fetchJSON = (url: string) => fetch(url).then((res) => res.json())
 
@@ -68,25 +67,25 @@ export const StreamList = ({ names }: { names: string[] }) => {
   )
 
   return (
-    <div tw="p-4 flex flex-col gap-8">
-      <AddStream />
+    <div tw="flex">
+      <StreamNamePanel selectedStreamNames={names} streams={streams} />
 
-      {names.map((name) => (
-        <FetchStream
-          key={name}
-          name={name}
-          setStream={setStream}
-          clearStream={clearStream}
-        />
-      ))}
+      <div tw="p-4 flex-1 flex flex-col gap-8">
+        {names.map((name) => (
+          <FetchStream
+            key={name}
+            name={name}
+            setStream={setStream}
+            clearStream={clearStream}
+          />
+        ))}
 
-      <CausationStreams selectedStreamNames={names} streams={streams} />
-
-      {streams.map((stream) => (
-        // Include the streams length in the key to work around arrows not being
-        // redrawn when a stream is removed
-        <Stream key={stream.name + streams.length} stream={stream} />
-      ))}
+        {streams.map((stream) => (
+          // Include the streams length in the key to work around arrows not being
+          // redrawn when a stream is removed
+          <Stream key={stream.name + streams.length} stream={stream} />
+        ))}
+      </div>
     </div>
   )
 }
