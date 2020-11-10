@@ -12,15 +12,15 @@ export const StreamNamePanel = ({
   streams: Data.Stream[]
 }) => {
   return (
-    <div tw="bg-gray-300 p-4 flex flex-col gap-8 h-full shadow-lg">
-      <AddStream />
-
+    <div tw="bg-gray-300 px-3 py-4 flex flex-col gap-8 h-full shadow-lg">
       <CausationStreams
         selectedStreamNames={selectedStreamNames}
         streams={streams}
       />
 
       <ActiveStreams selectedStreamNames={selectedStreamNames} />
+
+      <AddStream />
     </div>
   )
 }

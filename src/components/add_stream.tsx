@@ -32,8 +32,16 @@ export const AddStream = () => {
 
   return (
     <form>
-      <div tw="flex gap-2 items-center w-full">
-        <TextInput ref={textRef} type="text" css={{ maxWidth: 500 }} />
+      <label htmlFor="specific-stream" tw="font-bold mb-2 pl-2 block">
+        Specific Stream
+      </label>
+      <div tw="flex gap-2 items-center w-full px-2">
+        <TextInput
+          id="specific-stream"
+          ref={textRef}
+          type="text"
+          css={{ maxWidth: 500 }}
+        />
         <Button type="submit" onClick={onClick}>
           Add
         </Button>
