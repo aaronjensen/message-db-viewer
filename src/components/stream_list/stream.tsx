@@ -1,4 +1,4 @@
-import { StreamMessage } from "@components/stream_message"
+import { StreamMessage } from "@components/stream_list/stream_message"
 import * as Data from "@data"
 import { removeStream } from "@lib/router"
 import { useRouter } from "next/router"

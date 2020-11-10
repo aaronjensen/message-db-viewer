@@ -14,7 +14,7 @@ const TextInput = tw.input`
   text-sm
 `
 
-export const AddStream = () => {
+export const SpecificStream = () => {
   const router = useRouter()
   const textRef = useRef<any>()
 

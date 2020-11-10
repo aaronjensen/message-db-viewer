@@ -1,7 +1,7 @@
 import { addableStreamNames } from "@lib/stream_names"
 import React from "react"
 import useSWR from "swr"
-import { StreamNameList } from "@components/stream_name_list"
+import { StreamNameList } from "@components/stream_name_panel/stream_name_list"
 
 const fetchJSON = (url: string) => fetch(url).then((res) => res.json())
 

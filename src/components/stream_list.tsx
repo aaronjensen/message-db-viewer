@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react"
 import useSWR from "swr"
 import { StreamNamePanel } from "@components/stream_name_panel"
-import { Stream } from "@components/stream"
+import { Stream } from "@components/stream_list/stream"
 import tw from "twin.macro"
 import * as Data from "@data"
 
