@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react"
+import React, { useState, useLayoutEffect, useCallback } from "react"
 import useSWR from "swr"
 import { StreamNamePanel } from "@components/stream_name_panel"
 import { Stream } from "@components/stream_list/stream"
@@ -24,7 +24,7 @@ const FetchStream = ({
     }
   )
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (messages) {
       setStream(name, messages)
     }
