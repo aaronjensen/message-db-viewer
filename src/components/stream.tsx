@@ -4,6 +4,10 @@ import { removeStream } from "@lib/router"
 import { useRouter } from "next/router"
 import "twin.macro"
 
+const EmptyStream = () => (
+  <div tw="italic border border-dashed px-8 py-8 inline-block">Empty</div>
+)
+
 export const Stream = ({ stream }: { stream: Data.Stream }) => {
   const { messages } = stream
 
@@ -19,17 +23,21 @@ export const Stream = ({ stream }: { stream: Data.Stream }) => {
         >
           ✕
         </button>
-        <div>{stream.name}</div>
+        <div tw="truncate">{stream.name}</div>
       </div>
       <div tw="z-0 mt-8">
-        <div
-          tw="grid grid-flow-col auto-cols-max gap-2 border p-2 bg-gray-100"
-          css={{ width: "max-content" }}
-        >
-          {messages.map((message) => (
-            <StreamMessage key={message.id} message={message} />
-          ))}
-        </div>
+        {messages.length == 0 ? (
+          <EmptyStream />
+        ) : (
+          <div
+            tw="grid grid-flow-col auto-cols-max gap-2 border p-2 bg-gray-100"
+            css={{ width: "max-content" }}
+          >
+            {messages.map((message) => (
+              <StreamMessage key={message.id} message={message} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )
