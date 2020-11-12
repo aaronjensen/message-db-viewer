@@ -17,7 +17,7 @@ export default async (req, res) => {
   const condition = null
 
   let result
-  if (streamName.endsWith("*")) {
+  if (streamName.includes("*")) {
     const category = streamName.split("-")[0]
     const correlation = null
     const consumerGroupMember = null
