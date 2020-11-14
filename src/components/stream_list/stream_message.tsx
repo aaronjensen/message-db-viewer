@@ -66,18 +66,26 @@ export const StreamMessage = ({ message }: { message: Data.Message }) => {
           strokeWidth={2}
           start={`message-${causationPosition}`}
           end={ref}
-          startAnchor={{
-            position: "bottom",
-            offset: { rightness: 10, bottomness: 0 },
-          }}
-          endAnchor={{
-            position:
-              message.metadata.causationMessageStreamName ===
-              message.stream_name
-                ? "bottom"
-                : "top",
-            offset: { rightness: -10, bottomness: 0 },
-          }}
+          startAnchor={[
+            {
+              position: "bottom",
+              offset: { rightness: 10, bottomness: 0 },
+            },
+            {
+              position: "top",
+              offset: { rightness: 10, bottomness: 0 },
+            },
+          ]}
+          endAnchor={[
+            {
+              position: "bottom",
+              offset: { rightness: -10, bottomness: 0 },
+            },
+            {
+              position: "top",
+              offset: { rightness: -10, bottomness: 0 },
+            },
+          ]}
         />
       )}
     </>
