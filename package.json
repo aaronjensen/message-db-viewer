@@ -1,5 +1,5 @@
 {
-  "name": "message-store-viewer",
+  "name": "message-db-viewer",
   "version": "0.1.0",
   "private": true,
   "scripts": {
