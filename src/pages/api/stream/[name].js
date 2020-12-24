@@ -1,5 +1,30 @@
 import { pool } from "@lib/db/pool"
 
+const escapeLiteral = (str) => {
+  let hasBackslash = false
+  let escaped = "'"
+
+  for (let i = 0; i < str.length; i++) {
+    let c = str[i]
+    if (c === "'") {
+      escaped += c + c
+    } else if (c === "\\") {
+      escaped += c + c
+      hasBackslash = true
+    } else {
+      escaped += c
+    }
+  }
+
+  escaped += "'"
+
+  if (hasBackslash === true) {
+    escaped = " E" + escaped
+  }
+
+  return escaped
+}
+
 const parseRow = (row) => ({
   ...row,
   data: JSON.parse(row.data),
@@ -14,7 +39,7 @@ export default async (req, res) => {
   const streamName = name
   const position = 0
   const batchSize = 100
-  const condition = null
+  let condition = null
 
   let result
   if (streamName.includes("*")) {
@@ -23,6 +48,8 @@ export default async (req, res) => {
     const consumerGroupMember = null
     const consumerGroupSize = null
     const pattern = streamName.replace(/\*/g, "%")
+    const escapedPattern = escapeLiteral(pattern)
+    condition = `stream_name like ${escapedPattern}`
 
     const parameters =
       "$1::varchar, $2::bigint, $3::bigint, $4::varchar, $5::bigint, $6::bigint, $7::varchar"
@@ -34,11 +61,10 @@ export default async (req, res) => {
       consumerGroupMember,
       consumerGroupSize,
       condition,
-      pattern,
     ]
 
     result = await pool.query(
-      `SELECT * from get_category_messages(${parameters}) WHERE stream_name like $8`,
+      `SELECT * from get_category_messages(${parameters})`,
       values
     )
   } else {

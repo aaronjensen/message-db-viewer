@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 5555",
+    "dev": "PGOPTIONS='-c message_store.sql_condition=on' next dev -p 5555",
     "build": "next build",
     "start": "next start",
     "lint": "eslint --fix .",
