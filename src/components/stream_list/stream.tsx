@@ -23,7 +23,7 @@ export const Stream = ({
 
   return (
     <div tw="pl-2">
-      <div tw="z-10 absolute bg-gray-50 bg-opacity-75 flex -ml-8">
+      <div tw="z-10 absolute bg-gray-50 bg-opacity-75 flex -ml-8 items-baseline">
         <button
           tw="text-xs mr-2 text-gray-400 hover:(bg-red-400 text-white) transition duration-150 ease-in-out rounded-full "
           css={{ width: 25, height: 25 }}
@@ -31,7 +31,7 @@ export const Stream = ({
         >
           ✕
         </button>
-        <div tw="truncate">{stream.name}</div>
+        <div tw="truncate text-sm">{stream.name}</div>
       </div>
       <div tw="z-0 mt-8">
         {messages.length == 0 ? (
