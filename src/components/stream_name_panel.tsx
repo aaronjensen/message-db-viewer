@@ -13,7 +13,7 @@ export const StreamNamePanel = ({
 }) => {
   return (
     <div
-      tw="bg-gray-300 px-3 py-4 flex flex-col gap-8 shadow-lg"
+      tw="bg-gray-800 px-3 py-4 flex flex-col gap-8 shadow-lg"
       css={{ width: 320 }}
     >
       <CausationStreams

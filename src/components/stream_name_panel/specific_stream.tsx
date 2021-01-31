@@ -32,7 +32,7 @@ export const SpecificStream = () => {
 
   return (
     <form>
-      <label htmlFor="specific-stream" tw="font-bold mb-2 pl-2 block">
+      <label htmlFor="specific-stream" tw="mb-2 pl-2 block text-white">
         Specific Stream
       </label>
       <div tw="flex gap-2 items-center w-full px-2">

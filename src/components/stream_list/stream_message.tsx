@@ -34,6 +34,7 @@ export const StreamMessage = ({
 
       {message.metadata && causationPosition && (
         <Xarrow
+          color="#3B82F6"
           strokeWidth={2}
           start={`message-${causationPosition}`}
           end={ref}

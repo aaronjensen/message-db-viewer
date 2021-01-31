@@ -68,7 +68,10 @@ export const StreamList = ({ names }: { names: string[] }) => {
   )
 
   return (
-    <div tw="flex gap-4 min-h-screen items-stretch">
+    <div
+      tw="flex gap-4 min-h-screen items-stretch bg-gray-100"
+      css={{ width: "max-content" }}
+    >
       <StreamNamePanel selectedStreamNames={names} streams={streams} />
 
       <div tw="p-4 pb-32 flex-1 flex flex-col gap-8">
