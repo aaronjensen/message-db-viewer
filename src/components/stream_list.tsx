@@ -90,6 +90,7 @@ export const StreamList = ({ names }: { names: string[] }) => {
           <Stream
             key={stream.name + streams.length}
             stream={stream}
+            selectedMessage={selectedMessage}
             selectMessage={selectMessage}
           />
         ))}

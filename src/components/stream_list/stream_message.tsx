@@ -1,13 +1,15 @@
 import * as React from "react"
 import Xarrow from "@components/xarrow"
-import "twin.macro"
+import tw from "twin.macro"
 import * as Data from "@data"
 
 export const StreamMessage = ({
   message,
+  selected,
   selectMessage,
 }: {
   message: Data.Message
+  selected: boolean
   selectMessage: (message: Data.Message | null) => void
 }) => {
   const ref = React.useRef<HTMLDivElement>(null)
@@ -16,18 +18,25 @@ export const StreamMessage = ({
   return (
     <>
       <div
-        ref={ref}
-        id={`message-${message.global_position}`}
-        tw="cursor-pointer border px-4 py-2 bg-white flex flex-col rounded"
-        onClick={() => selectMessage(message)}
+        tw="border-4 rounded transition-colors duration-75 ease-in"
+        css={selected ? tw`border-blue-400` : tw`border-transparent`}
       >
-        <div>{message.type}</div>
-        <div tw="grid grid-cols-2 gap-x-2">
-          <div>Pos:</div>
-          <div tw="text-right">{message.position}</div>
+        <div
+          ref={ref}
+          id={`message-${message.global_position}`}
+          tw="cursor-pointer px-4 py-2 bg-white flex flex-col rounded"
+          onClick={() =>
+            selected ? selectMessage(null) : selectMessage(message)
+          }
+        >
+          <div>{message.type}</div>
+          <div tw="grid grid-cols-2 gap-x-2">
+            <div>Pos:</div>
+            <div tw="text-right">{message.position}</div>
 
-          <div>GP:</div>
-          <div tw="text-right">{message.global_position}</div>
+            <div>GP:</div>
+            <div tw="text-right">{message.global_position}</div>
+          </div>
         </div>
       </div>
 

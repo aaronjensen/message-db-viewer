@@ -10,9 +10,11 @@ const EmptyStream = () => (
 
 export const Stream = ({
   stream,
+  selectedMessage,
   selectMessage,
 }: {
   stream: Data.Stream
+  selectedMessage: Data.Message | null
   selectMessage: (message: Data.Message | null) => void
 }) => {
   const { messages } = stream
@@ -39,13 +41,18 @@ export const Stream = ({
             tw="grid grid-flow-col auto-cols-max gap-2 p-2 rounded bg-gradient-to-b from-gray-200 via-gray-300 to-gray-300 shadow-md"
             css={{ width: "max-content" }}
           >
-            {messages.map((message) => (
-              <StreamMessage
-                key={message.id}
-                message={message}
-                selectMessage={selectMessage}
-              />
-            ))}
+            {messages.map((message) => {
+              const selected =
+                message.global_position == selectedMessage?.global_position
+              return (
+                <StreamMessage
+                  key={message.id}
+                  message={message}
+                  selected={selected}
+                  selectMessage={selectMessage}
+                />
+              )
+            })}
           </div>
         )}
       </div>
