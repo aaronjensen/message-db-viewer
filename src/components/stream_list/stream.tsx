@@ -8,7 +8,13 @@ const EmptyStream = () => (
   <div tw="italic border border-dashed px-8 py-8 inline-block">Empty</div>
 )
 
-export const Stream = ({ stream }: { stream: Data.Stream }) => {
+export const Stream = ({
+  stream,
+  selectMessage,
+}: {
+  stream: Data.Stream
+  selectMessage: (message: Data.Message | null) => void
+}) => {
   const { messages } = stream
 
   const router = useRouter()
@@ -34,7 +40,11 @@ export const Stream = ({ stream }: { stream: Data.Stream }) => {
             css={{ width: "max-content" }}
           >
             {messages.map((message) => (
-              <StreamMessage key={message.id} message={message} />
+              <StreamMessage
+                key={message.id}
+                message={message}
+                selectMessage={selectMessage}
+              />
             ))}
           </div>
         )}

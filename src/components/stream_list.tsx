@@ -2,6 +2,7 @@ import React, { useState, useLayoutEffect, useCallback } from "react"
 import useSWR from "swr"
 import { StreamNamePanel } from "@components/stream_name_panel"
 import { Stream } from "@components/stream_list/stream"
+import { SelectedMessage } from "@components/stream_list/selected_message"
 import tw from "twin.macro"
 import * as Data from "@data"
 
@@ -48,9 +49,9 @@ const setStreamInList = (streams: Data.Stream[], stream: Data.Stream) => {
   return sortStreams(streams)
 }
 
-// TODO Poll for most recently written to streams?
 export const StreamList = ({ names }: { names: string[] }) => {
   const [streams, setStreams] = useState<Data.Stream[]>([])
+  const [selectedMessage, selectMessage] = useState<Data.Message | null>(null)
 
   const setStream = useCallback(
     (name: string, messages: Data.Message[]) => {
@@ -67,15 +68,7 @@ export const StreamList = ({ names }: { names: string[] }) => {
   )
 
   return (
-    <div
-      css={[
-        tw`grid gap-4 min-h-screen`,
-        {
-          gridTemplateColumns: "320px 1fr",
-          gridTemplateRows: "1fr",
-        },
-      ]}
-    >
+    <div tw="flex gap-4 min-h-screen items-stretch">
       <StreamNamePanel selectedStreamNames={names} streams={streams} />
 
       <div tw="p-4 pb-32 flex-1 flex flex-col gap-8">
@@ -91,9 +84,20 @@ export const StreamList = ({ names }: { names: string[] }) => {
         {streams.map((stream) => (
           // Include the streams length in the key to work around arrows not being
           // redrawn when a stream is removed
-          <Stream key={stream.name + streams.length} stream={stream} />
+          <Stream
+            key={stream.name + streams.length}
+            stream={stream}
+            selectMessage={selectMessage}
+          />
         ))}
       </div>
+
+      {selectedMessage && (
+        <SelectedMessage
+          message={selectedMessage}
+          close={() => selectMessage(null)}
+        />
+      )}
     </div>
   )
 }
