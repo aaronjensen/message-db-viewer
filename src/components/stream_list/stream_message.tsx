@@ -18,13 +18,13 @@ export const StreamMessage = ({
   return (
     <>
       <div
-        tw="border-4 rounded transition-colors duration-75 ease-in"
+        tw="border-4 rounded transition-colors duration-75 ease-in z-10"
         css={selected ? tw`border-blue-400` : tw`border-transparent`}
       >
         <div
           ref={ref}
           id={`message-${message.global_position}`}
-          tw="cursor-pointer px-4 py-2 bg-white flex flex-col rounded"
+          tw="cursor-pointer px-4 py-2 bg-white flex flex-col rounded bg-opacity-95 shadow-sm"
           onClick={() =>
             selected ? selectMessage(null) : selectMessage(message)
           }
