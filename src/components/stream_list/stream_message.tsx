@@ -29,8 +29,8 @@ export const StreamMessage = ({
             selected ? selectMessage(null) : selectMessage(message)
           }
         >
-          <div>{message.type}</div>
-          <div tw="grid grid-cols-2 gap-x-2">
+          <div tw="mb-1">{message.type}</div>
+          <div tw="grid grid-cols-2 gap-x-2 text-sm">
             <div>Pos:</div>
             <div tw="text-right">{message.position}</div>
 
