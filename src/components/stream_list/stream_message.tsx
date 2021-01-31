@@ -1,6 +1,5 @@
 import * as React from "react"
 import Xarrow from "@components/xarrow"
-import { usePopper } from "react-popper"
 import "twin.macro"
 import * as Data from "@data"
 
