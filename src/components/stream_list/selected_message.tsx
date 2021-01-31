@@ -93,7 +93,7 @@ const DataTable = ({
   <div>
     <h2 tw="text-sm font-bold mb-2">{title}</h2>
 
-    <dl tw="font-mono mb-4 space-y-4">
+    <dl tw="font-mono pb-4 space-y-4">
       {Object.entries(data).map(([key, value]) => (
         <div key={key}>
           <dt tw="pr-4 text-gray-600">{key}</dt>
