@@ -11,22 +11,19 @@ export const SelectedMessage = ({
 }) => {
   return (
     <section
-      tw="sticky top-0 bottom-0 right-0 z-10 flex-none overflow-y-auto inset-y-0 pl-10 max-w-full flex"
+      tw="sticky top-0 bottom-0 right-0 z-10 flex-none overflow-hidden inset-y-0 pl-10 max-w-full flex"
       aria-labelledby="slide-over-heading"
     >
       <div tw="w-screen max-w-md">
-        <div tw="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
-          <div tw="px-4 sm:px-6">
-            <div tw="flex items-start justify-between">
-              <h2
-                id="slide-over-heading"
-                tw="text-lg font-medium text-gray-900"
-              >
+        <div tw="h-full flex flex-col bg-white shadow-xl overflow-y-auto">
+          <div tw="py-6 px-4 bg-blue-700 sm:px-6">
+            <div tw="flex items-center justify-between">
+              <h2 id="slide-over-heading" tw="text-lg font-medium text-white">
                 {message.type}
               </h2>
               <div tw="ml-3 h-7 flex items-center">
                 <button
-                  tw="rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  tw="bg-blue-700 rounded-md text-blue-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
                   onClick={close}
                 >
                   <span tw="sr-only">Close panel</span>
@@ -48,11 +45,31 @@ export const SelectedMessage = ({
                 </button>
               </div>
             </div>
+            <div tw="mt-3 text-xs font-mono">
+              <dl tw="grid grid-cols-2 gap-3">
+                <div tw="col-span-2">
+                  <dt tw="pr-4 text-blue-300">streamName</dt>
+                  <dd tw="mt-1 text-blue-200 truncate text-sm">
+                    <DataValue value={message.stream_name} />
+                  </dd>
+                </div>
+                <div>
+                  <dt tw="pr-4 text-blue-300">position</dt>
+                  <dd tw="mt-1 text-blue-200 text-sm">
+                    <DataValue value={message.position} />
+                  </dd>
+                </div>
+                <div>
+                  <dt tw="pr-4 text-blue-300">globalPosition</dt>
+                  <dd tw="mt-1 text-blue-200 text-sm">
+                    <DataValue value={message.global_position} />
+                  </dd>
+                </div>
+              </dl>
+            </div>
           </div>
-          <div tw="mt-6 relative flex-1 px-4 sm:px-6 text-xs">
+          <div tw="mt-6 relative flex-1 px-4 sm:px-6 py-6 text-xs">
             <div tw="absolute inset-0 px-4 sm:px-6">
-              <div tw="text-sm font-bold mb-2">Stream Name</div>
-              <div tw="font-mono mb-4">{message.stream_name}</div>
               <DataTable title="Data" data={message.data} />
 
               {message.metadata && (
@@ -80,7 +97,7 @@ const DataTable = ({
       {Object.entries(data).map(([key, value]) => (
         <div key={key}>
           <dt tw="pr-4 text-gray-600">{key}</dt>
-          <dd tw="mt-1 text-gray-900">
+          <dd tw="mt-1 text-gray-900 text-sm">
             <DataValue value={JSON.stringify(value, null, 2)} />
           </dd>
         </div>

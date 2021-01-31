@@ -14,8 +14,8 @@ export interface Message {
   id: string
   type: string
   data: MessageData
-  position: number
-  global_position: number
+  position: string
+  global_position: string
   stream_name: string
   metadata?: MessageMetadata
 }
