@@ -21,7 +21,7 @@ export const Stream = ({
 
   return (
     <div tw="pl-2">
-      <div tw="z-10 absolute bg-gray-100 bg-opacity-75 flex -ml-8">
+      <div tw="z-10 absolute bg-gray-50 bg-opacity-75 flex -ml-8">
         <button
           tw="text-xs mr-2 text-gray-400 hover:(bg-red-400 text-white) transition duration-150 ease-in-out rounded-full "
           css={{ width: 25, height: 25 }}
@@ -36,7 +36,7 @@ export const Stream = ({
           <EmptyStream />
         ) : (
           <div
-            tw="grid grid-flow-col auto-cols-max gap-2 border p-2 bg-gray-300 rounded"
+            tw="grid grid-flow-col auto-cols-max gap-2 p-2 rounded bg-gradient-to-b from-gray-200 via-gray-300 to-gray-300 shadow-md"
             css={{ width: "max-content" }}
           >
             {messages.map((message) => (
