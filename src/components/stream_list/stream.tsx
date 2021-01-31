@@ -36,7 +36,7 @@ export const Stream = ({
           <EmptyStream />
         ) : (
           <div
-            tw="grid grid-flow-col auto-cols-max gap-2 border p-2 bg-gray-100"
+            tw="grid grid-flow-col auto-cols-max gap-2 border p-2 bg-gray-100 rounded"
             css={{ width: "max-content" }}
           >
             {messages.map((message) => (
