@@ -1,5 +1,7 @@
 # Message DB Viewer
 
+![Message DB Viewer Example Image](screenshot.png)
+
 ## Getting Started
 
 Configure your message db settings:
