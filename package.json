@@ -21,16 +21,10 @@
   },
   "devDependencies": {
     "@babel/core": "*",
-    "@babel/preset-typescript": "*",
     "@emotion/babel-preset-css-prop": "*",
     "@emotion/react": "*",
     "@emotion/styled": "*",
     "@tailwindcss/forms": "*",
-    "@types/lodash": "*",
-    "@types/node": "*",
-    "@types/react": "*",
-    "@typescript-eslint/eslint-plugin": "*",
-    "@typescript-eslint/parser": "*",
     "autoprefixer": "*",
     "@babel/eslint-parser": "*",
     "eslint": "*",
@@ -40,7 +34,6 @@
     "postcss": "*",
     "prettier": "*",
     "tailwindcss": "*",
-    "twin.macro": "*",
-    "typescript": "*"
+    "twin.macro": "*"
   }
 }

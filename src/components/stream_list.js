@@ -4,26 +4,13 @@ import { StreamNamePanel } from "@components/stream_name_panel"
 import { Stream } from "@components/stream_list/stream"
 import { SelectedMessage } from "@components/stream_list/selected_message"
 import tw from "twin.macro"
-import * as Data from "@data"
 
-const fetchJSON = (url: string) => fetch(url).then((res) => res.json())
+const fetchJSON = (url) => fetch(url).then((res) => res.json())
 
-const FetchStream = ({
-  name,
-  setStream,
-  clearStream,
-}: {
-  name: string
-  setStream: (name: string, messages: Data.Message[]) => void
-  clearStream: (name: string) => void
-}) => {
-  const { data: messages } = useSWR<Data.Message[]>(
-    `/api/stream/${name}`,
-    fetchJSON,
-    {
-      refreshInterval: 500,
-    }
-  )
+const FetchStream = ({ name, setStream, clearStream }) => {
+  const { data: messages } = useSWR(`/api/stream/${name}`, fetchJSON, {
+    refreshInterval: 500,
+  })
 
   useLayoutEffect(() => {
     if (messages) {
@@ -35,7 +22,7 @@ const FetchStream = ({
   return null
 }
 
-const sortStreams = (streams: Data.Stream[]) =>
+const sortStreams = (streams) =>
   streams.sort((a, b) => {
     const posA = a.messages[0]?.global_position ?? Infinity
     const posB = b.messages[0]?.global_position ?? Infinity
@@ -43,25 +30,25 @@ const sortStreams = (streams: Data.Stream[]) =>
     return posA - posB
   })
 
-const setStreamInList = (streams: Data.Stream[], stream: Data.Stream) => {
+const setStreamInList = (streams, stream) => {
   streams = streams.filter((s) => s.name !== stream.name)
   streams.push(stream)
   return sortStreams(streams)
 }
 
-export const StreamList = ({ names }: { names: string[] }) => {
-  const [streams, setStreams] = useState<Data.Stream[]>([])
-  const [selectedMessage, selectMessage] = useState<Data.Message | null>(null)
+export const StreamList = ({ names }) => {
+  const [streams, setStreams] = useState([])
+  const [selectedMessage, selectMessage] = useState(null)
 
   const setStream = useCallback(
-    (name: string, messages: Data.Message[]) => {
+    (name, messages) => {
       setStreams((streams) => setStreamInList(streams, { name, messages }))
     },
     [setStreams]
   )
 
   const clearStream = useCallback(
-    (name: string) => {
+    (name) => {
       setStreams((streams) => streams.filter((s) => s.name !== name))
     },
     [setStreams]

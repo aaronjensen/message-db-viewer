@@ -19,9 +19,9 @@ const TextInput = tw.input`
 
 export const SpecificStream = () => {
   const router = useRouter()
-  const textRef = useRef<any>()
+  const textRef = useRef()
 
-  const onClick = (e: any) => {
+  const onClick = (e) => {
     e.preventDefault()
     if (!textRef.current) return
 

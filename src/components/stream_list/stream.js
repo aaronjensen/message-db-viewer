@@ -1,5 +1,4 @@
 import { StreamMessage } from "@components/stream_list/stream_message"
-import * as Data from "@data"
 import { removeStream } from "@lib/router"
 import { useRouter } from "next/router"
 import "twin.macro"
@@ -8,15 +7,7 @@ const EmptyStream = () => (
   <div tw="italic border border-dashed px-8 py-8 inline-block">Empty</div>
 )
 
-export const Stream = ({
-  stream,
-  selectedMessage,
-  selectMessage,
-}: {
-  stream: Data.Stream
-  selectedMessage: Data.Message | null
-  selectMessage: (message: Data.Message | null) => void
-}) => {
+export const Stream = ({ stream, selectedMessage, selectMessage }) => {
   const { messages } = stream
 
   const router = useRouter()

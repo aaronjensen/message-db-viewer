@@ -3,13 +3,7 @@ import "twin.macro"
 import { addStream } from "@lib/router"
 import { useRouter } from "next/router"
 
-export const StreamNameList = ({
-  streamNames,
-  title,
-}: {
-  streamNames: string[]
-  title: string
-}) => {
+export const StreamNameList = ({ streamNames, title }) => {
   const router = useRouter()
 
   return (

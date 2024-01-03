@@ -1,14 +1,7 @@
 import tw from "twin.macro"
 import { css } from "twin.macro"
-import * as Data from "@data"
 
-export const SelectedMessage = ({
-  message,
-  close,
-}: {
-  message: Data.Message
-  close: () => void
-}) => {
+export const SelectedMessage = ({ message, close }) => {
   return (
     <section
       tw="sticky top-0 bottom-0 right-0 z-10 flex-none overflow-hidden inset-y-0 pl-10 max-w-full flex"
@@ -83,13 +76,7 @@ export const SelectedMessage = ({
   )
 }
 
-const DataTable = ({
-  title,
-  data,
-}: {
-  title: string
-  data: Data.MessageData
-}) => (
+const DataTable = ({ title, data }) => (
   <div>
     <h2 tw="text-sm font-bold mb-2">{title}</h2>
 
@@ -115,7 +102,7 @@ const clamp = css({
   textOverflow: "ellipsis",
 })
 
-const DataValue = ({ value }: { value: Data.Value }) => {
+const DataValue = ({ value }) => {
   return (
     <div tw="w-auto break-all resize-none" css={clamp}>
       {value}

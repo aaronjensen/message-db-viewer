@@ -1,18 +1,9 @@
 import * as React from "react"
 import Xarrow from "@components/xarrow"
 import tw from "twin.macro"
-import * as Data from "@data"
 
-export const StreamMessage = ({
-  message,
-  selected,
-  selectMessage,
-}: {
-  message: Data.Message
-  selected: boolean
-  selectMessage: (message: Data.Message | null) => void
-}) => {
-  const ref = React.useRef<HTMLDivElement>(null)
+export const StreamMessage = ({ message, selected, selectMessage }) => {
+  const ref = React.useRef(null)
   const causationPosition = message.metadata?.causationMessageGlobalPosition
 
   return (

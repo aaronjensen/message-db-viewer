@@ -6,28 +6,16 @@ import { isEqual, pick } from "lodash"
 ///////////////
 // public types
 
-type extendedJtypes =
-  | "string"
-  | "number"
-  | "bigint"
-  | "boolean"
-  | "symbol"
-  | "undefined"
-  | "object"
-  | "function"
-  | "null"
-  | "array"
-
-export const getElementByPropGiven = (ref: refType): HTMLElement => {
+export const getElementByPropGiven = (ref) => {
   let myRef
   if (typeof ref === "string") {
     myRef = document.getElementById(ref)
   } else myRef = ref.current
-  return myRef as any
+  return myRef
 }
 
-export const typeOf = (arg: any): extendedJtypes => {
-  let type: extendedJtypes = typeof arg
+export const typeOf = (arg) => {
+  let type = typeof arg
   if (type === "object") {
     if (arg === null) type = "null"
     else if (Array.isArray(arg)) type = "array"
@@ -35,89 +23,7 @@ export const typeOf = (arg: any): extendedJtypes => {
   return type
 }
 
-export type xarrowPropsType = {
-  start: refType
-  end: refType
-  startAnchor?: anchorType | anchorType[]
-  endAnchor?: anchorType | anchorType[]
-  label?: labelType | labelsType
-  color?: string
-  lineColor?: string | null
-  headColor?: string | null
-  strokeWidth?: number
-  headSize?: number
-  path?: "smooth" | "grid" | "straight"
-  curveness?: number
-  dashness?:
-    | boolean
-    | {
-        strokeLen?: number
-        nonStrokeLen?: number
-        animation?: boolean | number
-      }
-  consoleWarning?: boolean
-  passProps?: React.SVGProps<SVGPathElement>
-  advanced?: {
-    extendSVGcanvas?: number
-    passProps?: {
-      SVGcanvas?: React.SVGAttributes<SVGSVGElement>
-      arrowBody?: React.SVGProps<SVGPathElement>
-      arrowHead?: React.SVGProps<SVGPathElement>
-    }
-  }
-  monitorDOMchanges?: boolean
-  registerEvents?: registerEventsType[]
-}
-
-export type anchorType = anchorPositionType | anchorCustomPositionType
-export type anchorPositionType =
-  | "middle"
-  | "left"
-  | "right"
-  | "top"
-  | "bottom"
-  | "auto"
-
-export type anchorCustomPositionType = {
-  position: anchorPositionType
-  offset: { rightness: number; bottomness: number }
-}
-export type reactRefType = React.RefObject<HTMLElement | undefined>
-export type refType = reactRefType | string
-export type labelsType = {
-  start?: labelType
-  middle?: labelType
-  end?: labelType
-}
-export type labelType = JSX.Element
-export type domEventType = keyof GlobalEventHandlersEventMap
-export type registerEventsType = {
-  ref: refType
-  eventName: domEventType
-  callback?: CallableFunction
-}
-
-////////////////
-// private types
-
-type anchorSideType = "left" | "right" | "top" | "bottom"
-
-type prevPos = {
-  start: {
-    x: number
-    y: number
-    right: number
-    bottom: number
-  }
-  end: {
-    x: number
-    y: number
-    right: number
-    bottom: number
-  }
-}
-
-const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
+const Xarrow = (props) => {
   let {
     startAnchor,
     endAnchor,
@@ -134,14 +40,11 @@ const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
     advanced,
   } = props
 
-  const selfRef = useRef(null) as reactRefType
-  const [anchorsRefs, setAnchorsRefs] = useState<{
-    start: HTMLElement | null
-    end: HTMLElement | null
-  }>({ start: null, end: null })
+  const selfRef = useRef(null)
+  const [anchorsRefs, setAnchorsRefs] = useState({ start: null, end: null })
 
-  const [prevPosState, setPrevPosState] = useState<prevPos | null>()
-  const [prevProps, setPrevProps] = useState<xarrowPropsType | null>()
+  const [prevPosState, setPrevPosState] = useState()
+  const [prevProps, setPrevProps] = useState()
 
   const updateIfNeeded = () => {
     // check if anchors refs changed
@@ -261,8 +164,8 @@ const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
     labelEnd = null
   if (label) {
     if (typeof label === "string" || "type" in label) labelMiddle = label
-    else if (["start", "middle", "end"].some((key) => key in (label as any))) {
-      label = label as labelsType
+    else if (["start", "middle", "end"].some((key) => key in label)) {
+      label = label
       ;({ start: labelStart, middle: labelMiddle, end: labelEnd } = label)
     }
   }
@@ -274,11 +177,9 @@ const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
   let { SVGcanvas = {}, arrowBody = {}, arrowHead = {} } = adPassProps
 
   const getSelfPos = () => {
-    let {
-      left: xarrowElemX,
-      top: xarrowElemY,
-    } = (selfRef.current as any).getBoundingClientRect()
-    let xarrowStyle = getComputedStyle(selfRef.current as any)
+    let { left: xarrowElemX, top: xarrowElemY } =
+      selfRef.current.getBoundingClientRect()
+    let xarrowStyle = getComputedStyle(selfRef.current)
     let xarrowStyleLeft = Number(xarrowStyle.left.slice(0, -2))
     let xarrowStyleTop = Number(xarrowStyle.top.slice(0, -2))
     return {
@@ -287,7 +188,7 @@ const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
     }
   }
 
-  const getAnchorsPos = (): prevPos | undefined => {
+  const getAnchorsPos = () => {
     if (!anchorsRefs.start || !anchorsRefs.end) return
     let s = anchorsRefs.start.getBoundingClientRect()
     let e = anchorsRefs.end.getBoundingClientRect()
@@ -311,16 +212,16 @@ const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
     }
   }
 
-  const updatePosition = (positions: prevPos): void => {
+  const updatePosition = (positions) => {
     // calculate new position and path and set state based on given properties
 
     let { start: sPos } = positions
     let { end: ePos } = positions
-    let headOrient: number = 0
+    let headOrient = 0
 
     //////////////////////////////////////////////////////////////////////
     // declare relevant functions for later use for start and end refs(instead doing all twice)
-    const getAnchorsDefaultOffsets = (width: number, height: number) => {
+    const getAnchorsDefaultOffsets = (width, height) => {
       return {
         middle: { rightness: width * 0.5, bottomness: height * 0.5 },
         left: { rightness: 0, bottomness: height * 0.5 },
@@ -330,7 +231,7 @@ const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
       }
     }
 
-    const prepareAnchorLines = (anchor: any, anchorPos: any) => {
+    const prepareAnchorLines = (anchor, anchorPos) => {
       let defsOffsets = getAnchorsDefaultOffsets(
         anchorPos.right - anchorPos.x,
         anchorPos.bottom - anchorPos.y
@@ -341,7 +242,7 @@ const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
       //now map each item in the list to relevant object
       let anchorChoiceMapped = anchorChoice.map((anchorChoice) => {
         if (typeOf(anchorChoice) === "string") {
-          anchorChoice = anchorChoice as anchorPositionType
+          anchorChoice = anchorChoice
           return {
             position: anchorChoice,
             offset: { rightness: 0, bottomness: 0 },
@@ -352,28 +253,23 @@ const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
           if (!anchorChoice.offset.bottomness)
             anchorChoice.offset.bottomness = 0
           if (!anchorChoice.offset.rightness) anchorChoice.offset.rightness = 0
-          anchorChoice = anchorChoice as anchorCustomPositionType
+          anchorChoice = anchorChoice
           return anchorChoice
         }
       })
       //now build the object that represents the users possibilities for different anchors
-      let anchorPossibilities: anchorCustomPositionType[] = []
+      let anchorPossibilities = []
       if (anchorChoiceMapped.map((a) => a.position).includes("auto")) {
         let autoAnchor = anchorChoiceMapped.find((a) => a.position === "auto")
-        ;(["left", "right", "top", "bottom"] as anchorSideType[]).forEach(
-          (anchor) => {
-            let offset = defsOffsets[anchor]
-            offset.rightness += autoAnchor.offset.rightness
-            offset.bottomness += autoAnchor.offset.bottomness
-            anchorPossibilities.push({ position: anchor, offset })
-          }
-        )
+        ;["left", "right", "top", "bottom"].forEach((anchor) => {
+          let offset = defsOffsets[anchor]
+          offset.rightness += autoAnchor.offset.rightness
+          offset.bottomness += autoAnchor.offset.bottomness
+          anchorPossibilities.push({ position: anchor, offset })
+        })
       } else {
         anchorChoiceMapped.forEach((customAnchor) => {
-          let offset = (defsOffsets as any)[customAnchor.position] as {
-            rightness: number
-            bottomness: number
-          }
+          let offset = defsOffsets[customAnchor.position]
           offset.rightness += customAnchor.offset.rightness
           offset.bottomness += customAnchor.offset.bottomness
           anchorPossibilities.push({ position: customAnchor.position, offset })
@@ -392,21 +288,16 @@ const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
     let startPointsObj = prepareAnchorLines(startAnchor, sPos)
     let endPointsObj = prepareAnchorLines(endAnchor, ePos)
 
-    const dist = (
-      p1: { x: number; y: number },
-      p2: { x: number; y: number }
-    ) => {
+    const dist = (p1, p2) => {
       //length of line
       return Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2)
     }
 
-    type t1 = { x: number; y: number; anchorPosition: anchorPositionType }
-
-    const getShortestLine = (sPoints: t1[], ePoints: t1[]) => {
+    const getShortestLine = (sPoints, ePoints) => {
       // closes tPair Of Points which feet to the specified anchors
       let minDist = Infinity,
         d = Infinity
-      let closestPair: { startPointObj: t1; endPointObj: t1 } = null as any
+      let closestPair = null
       sPoints.forEach((sp) => {
         ePoints.forEach((ep) => {
           d = dist(sp, ep)
@@ -589,7 +480,7 @@ const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
     else if (endAnchorPosition === "middle") selectedCurviness += "m"
     if (absDx > absDy) selectedCurviness = selectedCurviness.replace(/m/g, "h")
     else selectedCurviness = selectedCurviness.replace(/m/g, "v")
-    ;(curvesPossibilities as any)[selectedCurviness]()
+    curvesPossibilities[selectedCurviness]()
 
     //     if (endAnchorPosition == "bottom" && startAnchorPosition == "bottom") {
     //       cpy1 += 50;
@@ -642,12 +533,12 @@ const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
             4 * (3 * cpy1 - 3 * y1) * (-3 * y1 + 9 * cpy1 - 9 * cpy2 + 3 * y2)
         )) /
       (2 * (-3 * y1 + 9 * cpy1 - 9 * cpy2 + 3 * y2))
-    const bzx = (t: number) =>
+    const bzx = (t) =>
       (1 - t) ** 3 * x1 +
       3 * (1 - t) ** 2 * t * cpx1 +
       3 * (1 - t) * t ** 2 * cpx2 +
       t ** 3 * x2
-    const bzy = (t: number) =>
+    const bzy = (t) =>
       (1 - t) ** 3 * y1 +
       3 * (1 - t) ** 2 * t * cpy1 +
       3 * (1 - t) * t ** 2 * cpy2 +
@@ -728,7 +619,7 @@ const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
   return (
     <div style={{ position: "absolute" }}>
       <svg
-        ref={(selfRef as unknown) as React.LegacyRef<SVGSVGElement>}
+        ref={selfRef}
         width={st.cw}
         height={st.ch}
         style={{
@@ -740,7 +631,7 @@ const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
           // overflow: "hidden",
         }}
         overflow="auto"
-        {...(SVGcanvas as string)}
+        {...SVGcanvas}
       >
         {/* debug */}
         {/*<circle r="5" cx={st.cpx1} cy={st.cpy1} fill="green" />
@@ -764,8 +655,8 @@ const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
           fill="transparent"
           // markerEnd={`url(#${arrowHeadId})`}
           pointerEvents="visibleStroke"
-          {...(passProps as string)}
-          {...(arrowBody as string)}
+          {...passProps}
+          {...arrowBody}
         >
           {animationSpeed ? (
             <animate
@@ -784,8 +675,8 @@ const Xarrow: React.FC<xarrowPropsType> = (props: xarrowPropsType) => {
           fill={headColor}
           // pointerEvents="all"
           transform={`translate(${xOffsetHead},${yOffsetHead}) rotate(${st.headOrient})`}
-          {...(passProps as string)}
-          {...(arrowHead as string)}
+          {...passProps}
+          {...arrowHead}
         />
       </svg>
 

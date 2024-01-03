@@ -1,7 +1,6 @@
 import { uniq, compact } from "lodash"
-import { NextRouter } from "next/router"
 
-export const parseStreamNames = (query: string | string[] = []) => {
+export const parseStreamNames = (query = []) => {
   let streamNames = query
   if (!Array.isArray(streamNames)) {
     streamNames = [streamNames]
@@ -12,7 +11,7 @@ export const parseStreamNames = (query: string | string[] = []) => {
   return uniq(streamNames)
 }
 
-export const addStream = (router: NextRouter, name: string) => {
+export const addStream = (router, name) => {
   let streamNames = parseStreamNames(router.query.streamNames)
   streamNames.push(name)
   streamNames = uniq(streamNames)
@@ -23,7 +22,7 @@ export const addStream = (router: NextRouter, name: string) => {
   })
 }
 
-export const removeStream = (router: NextRouter, name: string) => {
+export const removeStream = (router, name) => {
   let streamNames = parseStreamNames(router.query.streamNames)
   streamNames = streamNames.filter((n) => n !== name)
 
