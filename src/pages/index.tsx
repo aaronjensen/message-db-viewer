@@ -1,7 +1,6 @@
 import * as React from "react"
 import { useRouter } from "next/router"
 import "twin.macro"
-import { SuspenseOnClient } from "@components/suspense"
 import { StreamList } from "@components/stream_list"
 import { parseStreamNames } from "@lib/router"
 
@@ -13,8 +12,8 @@ export default function Home() {
   let streamNames = parseStreamNames(router.query.streamNames)
 
   return (
-    <SuspenseOnClient fallback={<Loading />}>
+    <React.Suspense>
       <StreamList names={streamNames} />
-    </SuspenseOnClient>
+    </React.Suspense>
   )
 }

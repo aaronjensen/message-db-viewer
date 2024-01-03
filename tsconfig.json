@@ -19,12 +19,23 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@data/*": ["src/data/*"],
-      "@data": ["src/data"],
-      "@settings/*": ["settings/*"],
-      "@lib/*": ["src/lib/*"]
-    }
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@data/*": [
+        "src/data/*"
+      ],
+      "@data": [
+        "src/data"
+      ],
+      "@settings/*": [
+        "settings/*"
+      ],
+      "@lib/*": [
+        "src/lib/*"
+      ]
+    },
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",
