@@ -4,7 +4,8 @@ import tw from "twin.macro"
 
 export const StreamMessage = ({ message, selected, selectMessage }) => {
   const ref = React.useRef(null)
-  const causationPosition = message.metadata?.causationMessageGlobalPosition
+  const causationStreamName = message.metadata?.causationMessageStreamName
+  const causationPosition = message.metadata?.causationMessagePosition
 
   return (
     <>
@@ -14,7 +15,7 @@ export const StreamMessage = ({ message, selected, selectMessage }) => {
       >
         <div
           ref={ref}
-          id={`message-${message.global_position}`}
+          id={`message-${message.stream_name}-${message.position}`}
           tw="cursor-pointer px-4 py-2 bg-white flex flex-col rounded bg-opacity-95 shadow-sm"
           onClick={() =>
             selected ? selectMessage(null) : selectMessage(message)
@@ -31,11 +32,11 @@ export const StreamMessage = ({ message, selected, selectMessage }) => {
         </div>
       </div>
 
-      {message.metadata && causationPosition && (
+      {causationPosition != null && (
         <Xarrow
           color="#3B82F6"
           strokeWidth={2}
-          start={`message-${causationPosition}`}
+          start={`message-${causationStreamName}-${causationPosition}`}
           end={ref}
           startAnchor={[
             {
