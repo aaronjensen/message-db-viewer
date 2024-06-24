@@ -1,14 +1,17 @@
-import { compact } from "lodash"
+import { compact, intersection } from "lodash"
 import "twin.macro"
 import { addableStreamNames } from "@lib/stream_names"
 import { StreamNameList } from "@components/stream_name_panel/stream_name_list"
 
-export const CausationStreams = ({ selectedStreamNames, streams }) => {
+export const CausationStreams = ({ selectedStreamNames, activeStreamNames, streams }) => {
   const allMessages = streams.flatMap((stream) => stream.messages)
 
   let causationStreamNames = compact(
     allMessages.map((message) => message.metadata?.causationMessageStreamName)
   )
+
+  causationStreamNames = intersection(causationStreamNames, activeStreamNames)
+
   causationStreamNames = addableStreamNames(
     causationStreamNames,
     selectedStreamNames
