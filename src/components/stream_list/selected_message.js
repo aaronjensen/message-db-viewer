@@ -95,17 +95,14 @@ const DataTable = ({ title, data }) => (
 
 const clamp = css({
   maxWidth: "100%",
-  display: "-webkit-box",
   WebkitBoxOrient: "vertical",
-  WebkitLineClamp: 2,
-  overflow: "hidden",
-  textOverflow: "ellipsis",
+  WebkitLineClamp: 2
 })
 
 const DataValue = ({ value }) => {
   return (
     <div tw="w-auto break-all resize-none" css={clamp}>
-      {value}
+      <pre>{value}</pre>
     </div>
   )
 }
