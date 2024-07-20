@@ -1,5 +1,4 @@
-import tw from "twin.macro"
-import { css } from "twin.macro"
+import "twin.macro"
 
 export const SelectedMessage = ({ message, close }) => {
   return (
@@ -93,19 +92,10 @@ const DataTable = ({ title, data }) => (
   </div>
 )
 
-const clamp = css({
-  maxWidth: "100%",
-  display: "-webkit-box",
-  WebkitBoxOrient: "vertical",
-  WebkitLineClamp: 2,
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-})
-
 const DataValue = ({ value }) => {
   return (
-    <div tw="w-auto break-all resize-none" css={clamp}>
-      {value}
+    <div tw="w-auto break-all resize-none whitespace-pre overflow-auto" className="no-scrollbar">
+      <pre>{value}</pre>
     </div>
   )
 }
