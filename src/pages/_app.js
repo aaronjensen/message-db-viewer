@@ -2,6 +2,7 @@ import tw, { GlobalStyles } from "twin.macro"
 import * as React from "react"
 import { Global } from "@emotion/react"
 import Head from "next/head"
+import "../styles.css"
 
 export default function App({ Component, pageProps }) {
   return (
