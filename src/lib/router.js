@@ -31,3 +31,10 @@ export const removeStream = (router, name) => {
     query: { streamNames: streamNames.join(",") },
   })
 }
+
+export const clearStreams = (router) => {
+  router.push({
+    pathname: "/",
+    query: {},
+  })
+}
