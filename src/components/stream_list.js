@@ -54,36 +54,48 @@ export const StreamList = ({ names }) => {
   )
 
   return (
-    <div className="flex gap-4 min-h-screen items-stretch w-full">
-      <StreamNamePanel selectedStreamNames={names} streams={streams} />
+    <div className="flex min-h-screen w-full">
+      <div className="h-screen overflow-y-auto">
+        <StreamNamePanel selectedStreamNames={names} streams={streams} />
+      </div>
 
-      <div className="p-4 pb-32 flex-1 flex flex-col gap-8">
-        {names.map((name) => (
-          <FetchStream
-            key={name}
-            name={name}
-            setStream={setStream}
-            clearStream={clearStream}
-          />
-        ))}
+      <div className="flex-1 h-screen overflow-y-auto relative bg-gray-50">
+        <div className="absolute inset-0 z-0">
+          {/* Arrow container */}
+        </div>
+        
+        <div className="pl-8 pr-8 pt-4 pb-32 relative z-10">
+          {names.map((name) => (
+            <FetchStream
+              key={name}
+              name={name}
+              setStream={setStream}
+              clearStream={clearStream}
+            />
+          ))}
 
-        {streams.map((stream) => (
-          // Include the streams length in the key to work around arrows not being
-          // redrawn when a stream is removed
-          <Stream
-            key={stream.name + streams.length}
-            stream={stream}
-            selectedMessage={selectedMessage}
-            selectMessage={selectMessage}
-          />
-        ))}
+          <div className="flex flex-col gap-8">
+            {streams.map((stream) => (
+              <Stream
+                key={stream.name + streams.length}
+                stream={stream}
+                selectedMessage={selectedMessage}
+                selectMessage={selectMessage}
+              />
+            ))}
+          </div>
+        </div>
       </div>
 
       {selectedMessage && (
-        <SelectedMessage
-          message={selectedMessage}
-          close={() => selectMessage(null)}
-        />
+        <div className="h-screen overflow-y-auto w-[384px] shadow-[-8px_0_16px_-6px_rgba(0,0,0,0.1)] relative z-20">
+          <div className="w-full h-full">
+            <SelectedMessage
+              message={selectedMessage}
+              close={() => selectMessage(null)}
+            />
+          </div>
+        </div>
       )}
     </div>
   )

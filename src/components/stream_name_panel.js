@@ -14,11 +14,11 @@ export const StreamNamePanel = ({ selectedStreamNames, streams }) => {
   })
 
   return (
-    <div className="bg-gray-800 px-3 py-4 flex flex-col gap-8 shadow-lg w-[320px] relative">
+    <div className="bg-gray-800 px-3 py-4 flex flex-col gap-8 w-[320px] h-full relative">
       {selectedStreamNames.length > 0 && (
         <button
           onClick={() => clearStreams(router)}
-          className="absolute top-4 right-3 text-sm text-gray-300 hover:text-white transition-colors duration-150"
+          className="absolute top-5 right-5 text-sm text-gray-300 hover:text-white transition-colors duration-150"
         >
           Reset
         </button>

@@ -9,7 +9,7 @@ export const StreamMessage = ({ message, selected, selectMessage }) => {
   return (
     <>
       <div
-        className={`border-4 rounded transition-colors duration-75 ease-in z-10 ${
+        className={`border-4 rounded transition-colors duration-75 ease-in ${
           selected ? "border-blue-400" : "border-transparent"
         }`}
       >
