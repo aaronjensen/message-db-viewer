@@ -1,21 +1,7 @@
 import { useRef } from "react"
-import tw from "twin.macro"
 import { useRouter } from "next/router"
 import { Button } from "@components/button"
 import { addStream } from "@lib/router"
-
-const TextInput = tw.input`
-  shadow-sm
-  focus:ring-blue-500
-  focus:border-blue-500
-  block
-  w-full
-  text-sm
-  border-gray-300
-  rounded-md
-  py-1
-  px-2
-`
 
 export const SpecificStream = () => {
   const router = useRouter()
@@ -35,15 +21,15 @@ export const SpecificStream = () => {
 
   return (
     <form>
-      <label htmlFor="specific-stream" tw="mb-2 pl-2 block text-white">
+      <label htmlFor="specific-stream" className="mb-2 pl-2 block text-white">
         Specific Stream
       </label>
-      <div tw="flex gap-2 items-center w-full pr-2">
-        <TextInput
+      <div className="flex gap-2 items-center w-full pr-2">
+        <input
           id="specific-stream"
           ref={textRef}
           type="text"
-          css={{ maxWidth: 500 }}
+          className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full text-sm border-gray-300 rounded-md py-1 px-2 max-w-[500px]"
         />
         <Button type="submit" onClick={onClick}>
           Add

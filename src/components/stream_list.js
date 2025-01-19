@@ -3,7 +3,6 @@ import useSWR from "swr"
 import { StreamNamePanel } from "@components/stream_name_panel"
 import { Stream } from "@components/stream_list/stream"
 import { SelectedMessage } from "@components/stream_list/selected_message"
-import tw from "twin.macro"
 
 const fetchJSON = (url) => fetch(url).then((res) => res.json())
 
@@ -55,12 +54,10 @@ export const StreamList = ({ names }) => {
   )
 
   return (
-    <div
-      tw="flex gap-4 min-h-screen items-stretch w-full"
-    >
+    <div className="flex gap-4 min-h-screen items-stretch w-full">
       <StreamNamePanel selectedStreamNames={names} streams={streams} />
 
-      <div tw="p-4 pb-32 flex-1 flex flex-col gap-8">
+      <div className="p-4 pb-32 flex-1 flex flex-col gap-8">
         {names.map((name) => (
           <FetchStream
             key={name}

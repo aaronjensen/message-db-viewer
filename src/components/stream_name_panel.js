@@ -2,7 +2,6 @@ import { CausationStreams } from "@components/stream_name_panel/causation_stream
 import { ActiveStreams } from "@components/stream_name_panel/active_streams"
 import { SpecificStream } from "@components/stream_name_panel/specific_stream"
 import useSWR from "swr"
-import "twin.macro"
 
 const fetchJSON = (url) => fetch(url).then((res) => res.json())
 
@@ -12,10 +11,7 @@ export const StreamNamePanel = ({ selectedStreamNames, streams }) => {
   })
 
   return (
-    <div
-      tw="bg-gray-800 px-3 py-4 flex flex-col gap-8 shadow-lg"
-      css={{ width: 320 }}
-    >
+    <div className="bg-gray-800 px-3 py-4 flex flex-col gap-8 shadow-lg w-[320px]">
       <CausationStreams
         selectedStreamNames={selectedStreamNames}
         activeStreamNames={activeStreamNames}

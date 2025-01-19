@@ -1,22 +1,13 @@
-import tw from "twin.macro"
+import React from "react"
 
-export const Button = tw.button`
-  inline-flex
-  items-center
-  px-3
-  py-1
-  border
-  border-gray-300
-  text-sm
-  leading-5
-  font-medium
-  rounded-md
-  text-blue-100
-  bg-blue-600
-  hover:bg-blue-900
-  focus:outline-none
-  focus:border-blue-900
-  transition
-  duration-150
-  ease-in-out
-`
+export const Button = ({ onClick, children, type = "button" }) => {
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+    >
+      {children}
+    </button>
+  )
+}

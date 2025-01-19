@@ -10,7 +10,9 @@
     "format": "eslint ."
   },
   "dependencies": {
+    "@babel/runtime": "^7.24.0",
     "@popperjs/core": "*",
+    "@tailwindcss/forms": "^0.5.10",
     "lodash": "*",
     "next": "*",
     "pg": "*",
@@ -21,19 +23,15 @@
   },
   "devDependencies": {
     "@babel/core": "*",
-    "@emotion/babel-preset-css-prop": "*",
-    "@emotion/react": "*",
-    "@emotion/styled": "*",
-    "@tailwindcss/forms": "*",
-    "autoprefixer": "*",
     "@babel/eslint-parser": "*",
+    "@babel/plugin-transform-runtime": "^7.24.0",
+    "autoprefixer": "*",
     "eslint": "*",
+    "eslint_d": "*",
     "eslint-config-prettier": "*",
     "eslint-plugin-prettier": "*",
-    "eslint_d": "*",
     "postcss": "*",
     "prettier": "*",
-    "tailwindcss": "*",
-    "twin.macro": "*"
+    "tailwindcss": "*"
   }
 }

@@ -1,20 +1,19 @@
 import React from "react"
-import tw from "twin.macro"
 
 export const CopyButton = ({ value, variant = "default" }) => {
   const handleCopy = () => {
     navigator.clipboard.writeText(value)
   }
 
-  const buttonStyles = 
-    variant === "header" 
-      ? tw`opacity-0 group-hover:opacity-100 text-blue-200 hover:text-white transition-all duration-150 ease-in-out`
-      : tw`opacity-0 group-hover:opacity-100 text-gray-400 hover:text-gray-600 transition-all duration-150 ease-in-out`
+  const buttonStyles =
+    variant === "header"
+      ? "opacity-0 group-hover:opacity-100 text-blue-200 hover:text-white transition-all duration-150 ease-in-out"
+      : "opacity-0 group-hover:opacity-100 text-gray-400 hover:text-gray-600 transition-all duration-150 ease-in-out"
 
   return (
     <button
       onClick={handleCopy}
-      css={buttonStyles}
+      className={buttonStyles}
       title="Copy to clipboard"
     >
       <svg
@@ -33,4 +32,4 @@ export const CopyButton = ({ value, variant = "default" }) => {
       </svg>
     </button>
   )
-} 
+}

@@ -1,6 +1,5 @@
 import * as React from "react"
 import { useRouter } from "next/router"
-import "twin.macro"
 import { StreamList } from "@components/stream_list"
 import { parseStreamNames } from "@lib/router"
 
