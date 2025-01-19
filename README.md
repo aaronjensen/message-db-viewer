@@ -15,9 +15,6 @@ Run the development server:
 ```sh
 npm install
 npm run dev
-# or
-yarn install
-yarn dev
 ```
 
 Open [http://localhost:5555](http://localhost:5555) with your browser to see the result.
