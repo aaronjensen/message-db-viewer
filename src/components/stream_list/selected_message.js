@@ -43,19 +43,19 @@ export const SelectedMessage = ({ message, close }) => {
             <div className="col-span-2 group">
               <dt className="pr-4 text-blue-300">streamName</dt>
               <dd className="mt-1 text-blue-200 truncate text-sm">
-                <DataValue value={message.stream_name} />
+                <HeaderDataValue value={message.stream_name} />
               </dd>
             </div>
             <div className="group">
               <dt className="pr-4 text-blue-300">position</dt>
               <dd className="mt-1 text-blue-200 text-sm">
-                <DataValue value={message.position} />
+                <HeaderDataValue value={message.position} />
               </dd>
             </div>
             <div className="group">
               <dt className="pr-4 text-blue-300">globalPosition</dt>
               <dd className="mt-1 text-blue-200 text-sm">
-                <DataValue value={message.global_position} />
+                <HeaderDataValue value={message.global_position} />
               </dd>
             </div>
           </dl>
