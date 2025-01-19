@@ -1,4 +1,5 @@
 import "twin.macro"
+import { CopyButton } from "@components/copy_button"
 
 export const SelectedMessage = ({ message, close }) => {
   return (
@@ -39,22 +40,22 @@ export const SelectedMessage = ({ message, close }) => {
             </div>
             <div tw="mt-3 text-xs font-mono">
               <dl tw="grid grid-cols-2 gap-3">
-                <div tw="col-span-2">
+                <div tw="col-span-2" className="group">
                   <dt tw="pr-4 text-blue-300">streamName</dt>
                   <dd tw="mt-1 text-blue-200 truncate text-sm">
-                    <DataValue value={message.stream_name} />
+                    <HeaderDataValue value={message.stream_name} />
                   </dd>
                 </div>
-                <div>
+                <div className="group">
                   <dt tw="pr-4 text-blue-300">position</dt>
                   <dd tw="mt-1 text-blue-200 text-sm">
-                    <DataValue value={message.position} />
+                    <HeaderDataValue value={message.position} />
                   </dd>
                 </div>
-                <div>
+                <div className="group">
                   <dt tw="pr-4 text-blue-300">globalPosition</dt>
                   <dd tw="mt-1 text-blue-200 text-sm">
-                    <DataValue value={message.global_position} />
+                    <HeaderDataValue value={message.global_position} />
                   </dd>
                 </div>
               </dl>
@@ -81,7 +82,7 @@ const DataTable = ({ title, data }) => (
 
     <dl tw="font-mono pb-4 space-y-4">
       {Object.entries(data).map(([key, value]) => (
-        <div key={key}>
+        <div key={key} className="group">
           <dt tw="pr-4 text-gray-600">{key}</dt>
           <dd tw="mt-1 text-gray-900 text-sm">
             <DataValue value={JSON.stringify(value, null, 2)} />
@@ -92,10 +93,24 @@ const DataTable = ({ title, data }) => (
   </div>
 )
 
+const HeaderDataValue = ({ value }) => {
+  return (
+    <div tw="flex items-start gap-2">
+      <div tw="w-auto break-all resize-none whitespace-pre overflow-auto flex-grow" className="no-scrollbar">
+        <pre>{value}</pre>
+      </div>
+      <CopyButton value={value} variant="header" />
+    </div>
+  )
+}
+
 const DataValue = ({ value }) => {
   return (
-    <div tw="w-auto break-all resize-none whitespace-pre overflow-auto" className="no-scrollbar">
-      <pre>{value}</pre>
+    <div tw="flex items-start gap-2">
+      <div tw="w-auto break-all resize-none whitespace-pre overflow-auto flex-grow" className="no-scrollbar">
+        <pre>{value}</pre>
+      </div>
+      <CopyButton value={value} />
     </div>
   )
 }

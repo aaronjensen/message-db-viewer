@@ -1,6 +1,7 @@
 import { StreamMessage } from "@components/stream_list/stream_message"
 import { removeStream } from "@lib/router"
 import { useRouter } from "next/router"
+import { CopyButton } from "@components/copy_button"
 import "twin.macro"
 
 const EmptyStream = () => (
@@ -22,7 +23,10 @@ export const Stream = ({ stream, selectedMessage, selectMessage }) => {
         >
           ✕
         </button>
-        <div tw="truncate text-sm">{stream.name}</div>
+        <div tw="truncate text-sm flex items-center gap-2" className="group">
+          <span>{stream.name}</span>
+          <CopyButton value={stream.name} variant="stream" />
+        </div>
       </div>
       <div tw="z-0 mt-8">
         {messages.length == 0 ? (
