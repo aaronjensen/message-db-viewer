@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@popperjs/core": "*",
+    "@tailwindcss/postcss": "*",
     "@tailwindcss/forms": "^0.5.10",
     "lodash": "*",
     "next": "*",
