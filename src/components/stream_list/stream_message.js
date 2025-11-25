@@ -16,7 +16,7 @@ export const StreamMessage = ({ message, selected, selectMessage }) => {
         <div
           ref={ref}
           id={`message-${message.stream_name}-${message.position}`}
-          className="cursor-pointer px-4 py-2 bg-white flex flex-col rounded bg-opacity-95 shadow-sm"
+          className="cursor-pointer px-4 py-2 bg-white/95 flex flex-col rounded shadow-sm"
           onClick={() =>
             selected ? selectMessage(null) : selectMessage(message)
           }

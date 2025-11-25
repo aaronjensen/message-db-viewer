@@ -16,7 +16,7 @@ export const Stream = ({ stream, selectedMessage, selectMessage }) => {
 
   return (
     <div className="pl-2">
-      <div className="bg-gray-50 bg-opacity-75 flex items-baseline mb-2 -ml-8 relative z-10">
+      <div className="bg-gray-50/75 flex items-baseline mb-2 -ml-8 relative z-10">
         <button
           className="text-xs mr-2 text-gray-400 hover:bg-red-400 hover:text-white transition duration-150 ease-in-out rounded-full w-[25px] h-[25px]"
           onClick={() => removeStream(router, stream.name)}
