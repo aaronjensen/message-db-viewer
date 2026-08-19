@@ -26,7 +26,6 @@ export const StreamNamePanel = ({ selectedStreamNames, streams }) => {
 
       <CausationStreams
         selectedStreamNames={selectedStreamNames}
-        activeStreamNames={activeStreamNames}
         streams={streams}
       />
 
